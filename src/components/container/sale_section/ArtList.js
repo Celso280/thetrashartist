@@ -3,7 +3,7 @@ import ArtSale from './ArtSale'
 
 function ArtList() {
   return (
-    <div className='flex justify-evenly flex-wrap bg-white p-2'>
+    <div className='grid grid-cols-5 bg-white max-h-screen overflow-auto gap-2 p-2'>
         <ArtSale />
         <ArtSale />
         <ArtSale />
@@ -14,6 +14,56 @@ function ArtList() {
         <ArtSale />
         <ArtSale />
         <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale /> 
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale /> 
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale /> 
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale />
+        <ArtSale /> 
     </div>
   )
 }
