@@ -19,7 +19,7 @@ function NavBar() {
                 <img src='MyLogo.png' alt='TTA Logo'/>
                 <h3 className='inline-block mt-6 text-2xl'><Link to='/home'>TheTrashArtist</Link></h3>
             </div>
-            <ul className='hidden md:flex bg-slate-200 space-x-10'>
+            <ul className='hidden md:flex space-x-5 md:space-x-10 bg-slate-200'>
                 <li className='p-4'><Link to='/about'>About</Link></li>
                 <li className='p-4'><Link to='/artist'>Artists</Link></li>
                 <li className='p-4'><Link to='/connect'>Posts</Link></li>
@@ -29,11 +29,11 @@ function NavBar() {
                 </div>
             </ul> 
             <div onClick={handleNav} className='block md:hidden'>
-                {!nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20}/>}      
+                {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20}/>}      
             </div>
             
             {/* this is for side bar */}
-            <div className={!nav ? 'fixed p-3 rounded-md left-0 top-0 w-[60%] bg-slate-200 h-full ease-in-out duration-500' : 'fixed left-[-100%]'}>
+            <div className={nav ? 'fixed p-3 left-0 top-0 w-[60%] bg-slate-200 h-full ease-in-out duration-500' : 'fixed left-[-100%]'}>
                 <div className='flex bg-white h-10'>
                     <img src='MyLogo.png' alt='TTA Logo' className='ml-0'/>
                     <h3 className='mt-1 text-2xl'><Link to='/home'>TheTrashArtist</Link></h3>

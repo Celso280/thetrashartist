@@ -6,7 +6,7 @@ function Sell() {
     <div>
       <NavBar />
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-        <div className="w-full p-6 m-auto bg-white rounded-md ring-2 ring-slate-400 lg:max-w-xl mt-10">
+        <div className="w-full p-6 m-auto bg-white rounded-md sm:max-w-xl mt-10">
           <form className="mt-6">
             <div className="mb-2">
               <label
@@ -17,7 +17,7 @@ function Sell() {
               </label>
               <input
                 type="text"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
             <div className="mb-2">
@@ -29,7 +29,7 @@ function Sell() {
               </label>
               <input
                 type="text"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
             <div className="mb-2">
@@ -41,7 +41,7 @@ function Sell() {
               </label>
               <input
                 type="text"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
             <div className="mb-2">
@@ -53,7 +53,7 @@ function Sell() {
               </label>
               <input
                 type="text"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
             <div className="mb-2">
@@ -64,7 +64,7 @@ function Sell() {
             </div>
             
             <div className="mt-6">
-              <button className="w-full px-4 py-2 tracking-wide transition-colors duration-200 transform bg-slate-200 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+              <button className="w-full px-4 py-2 tracking-wide transition-colors duration-200 transform bg-slate-200 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600 hover:text-white">
                 Save
               </button>
             </div>
