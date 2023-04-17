@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import About from "./pages/About";
-import Connect from "./pages/Connect";
+import Posts from "./pages/Posts";
 import Sell from "./pages/Sell";
 import Home from "./pages/Home";
 import UserLogin from "./pages/UserLogin";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "connect",
-    element: <Connect />,
+    element: <Posts />,
   },
   {
     path: "sell",
