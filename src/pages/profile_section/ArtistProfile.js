@@ -3,7 +3,7 @@ import React from "react";
 
 function ArtistProfile() {
   return (
-    <div className='m-1 w-80'>
+    <div className='m-1 w-80 hover:scale-95'>
       <div>
           <img src='sampleartist.jpg' alt='art sale'/>
       </div>

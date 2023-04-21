@@ -10,6 +10,7 @@ import UserLogin from "./pages/UserLogin";
 import ArtistList from "./pages/profile_section/ArtistList";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     path: "artist",
     element: <ArtistList />,
   },
+  
 ]);
 
 let root = ReactDOM.createRoot(document.getElementById("root"));

@@ -61,7 +61,7 @@ function TextContent() {
 
         <div className='w-full m-auto p-5'>
           <div className="relative flex flex-col justify-center overflow-hidden">
-            <div className="w-full p-6 m-auto rounded-md sm:max-w-xl  mt-5 bg-white">
+            <div className="w-full p-6 m-auto rounded-md sm:max-w-xl mt-5">
               <h1 className="text-3xl font-semibold text-center uppercase">
                 Contact us
               </h1>

@@ -1,12 +1,13 @@
 import React from 'react'
-import Plastic from './filter_categories/Plastic'
+import NavBar from '../components/NavBar'
+
 
 
 function Posts() {
   
   return (
     <div>
-      <Plastic/>
+      <NavBar/>
     </div>
   )
 }

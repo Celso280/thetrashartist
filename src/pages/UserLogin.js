@@ -6,7 +6,7 @@ function UserLogin() {
     <div className="">
       <NavBar />
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-        <div className="w-full p-6 m-auto bg-white rounded-md sm:max-w-xl mt-10">
+        <div className="w-full p-6 m-auto rounded-md sm:max-w-xl mt-10">
           <h1 className="text-3xl font-semibold text-center uppercase">
             Sign in
           </h1>
@@ -45,7 +45,7 @@ function UserLogin() {
             </div>
           </form>
 
-          <p className="mt-8 text-xs font-light text-center text-gray-700">
+          <p className="mt-8 text-xs text-center">
             {" "}
             Don't have an account?{" "}
             <a href="#" className="font-medium text-black hover:underline">

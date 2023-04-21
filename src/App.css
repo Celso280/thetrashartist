@@ -1,5 +1,5 @@
 body {
-  background-image: url(/public/cork-board.webp); 
+  background-image: url(/public/hypnotize.webp); 
   padding: 0.5rem; 
   margin: 0; 
   box-sizing: border-box;
@@ -18,10 +18,10 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #a2bfdc;
+  background: #392f2f;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #a2bfdc;
+  background: #392f2f;
 }

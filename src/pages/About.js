@@ -6,7 +6,7 @@ function About() {
   return (
     <div>
         <NavBar />
-        <div className='bg-white relative h-60 m-5 mt-2'>
+        <div className='relative h-60 m-5 mt-2'>
           <div className='absolute w-80 left-10 lg:left-[30rem] top-1/4'>
             <p className='text-center font-semibold'>About this Project</p>
             <img src='apollo.webp' alt='apollo of mythic heroes'/><br/>

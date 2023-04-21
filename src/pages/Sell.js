@@ -6,7 +6,7 @@ function Sell() {
     <div>
       <NavBar />
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-        <div className="w-full p-6 m-auto bg-white rounded-md sm:max-w-xl mt-10">
+        <div className="w-full p-6 m-auto rounded-md sm:max-w-xl mt-10">
           <form className="mt-6">
             <div className="mb-2">
               <label
