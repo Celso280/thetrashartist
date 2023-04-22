@@ -114,10 +114,7 @@ function TextContent() {
               </form>
             </div>
         </div>
-      </div>
-
-
-        
+      </div>     
     </div>
   )
 }

@@ -21,9 +21,9 @@ const renderCategories = () => {
       'Styrofoam',
       'Others'
    ]
-
+   
    const categolist = categoriesArr.map((category, index) => (
-      <div className='w-full'>
+      <div className='text-sm mx-5 my-1 px-1 md:mx-1 border-2 rounded-lg border-black ring-2 ring-slate-200 hover:scale-110'>
          <button className='my-2 uppercase' onClick={() => {
          filterItems(category)
          }}>{category}</button>  
@@ -32,9 +32,9 @@ const renderCategories = () => {
 
    return (
       <>
-         <button className='mr-10 ml-20' onClick={() => {
+         <button className='text-sm my-1 ml-5 md:ml-14 mr-1 lg:ml-14 w-16 border-2 rounded-lg border-black ring-2 ring-slate-200 hover:scale-110' onClick={() => {
             setHomeArray(arts)
-         }}>All</button>
+         }}>ALL</button>
          {categolist}
       </>
    )
