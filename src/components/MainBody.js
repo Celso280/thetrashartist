@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import Home from "./container/Home";
 import TextContent from "./container/TextContent";
 
+
 function MainBody() {
   return (
     <div>   

@@ -33,12 +33,9 @@ function NavBar() {
             </div>
             
             {/* this is for side bar */}
-            <div className={nav ? 'fixed p-3 left-[-5px] top-0 w-[60%] ease-in-out duration-500' : 'fixed left-[-100%]'}>
-                <div className='flex bg-white h-10'>
-                    <img src='MyLogo.png' alt='TTA Logo' className='ml-0'/>
-                    <h3 className='mt-1 text-2xl'><Link to='/home'>TheTrashArtist</Link></h3>
-                </div>
-                <ul className='uppercase p-4 border h-screen bg-white'>
+            <div className={nav ? 'fixed p-3 left-[-5px] top-[-12px] w-[60%] ease-in-out duration-500' : 'fixed left-[-100%]'}>
+                <ul className='uppercase p-4 h-screen bg-slate-100'>
+                    <li className='p-4 hover:bg-slate-100 hover:scale-110'><Link to='/home'>Home</Link></li>
                     <li className='p-4 hover:bg-slate-100 hover:scale-110'><Link to='/about'>About</Link></li>
                     <li className='p-4 hover:bg-slate-100 hover:scale-110'><Link to='/artist'>Artists</Link></li>
                     <li className='p-4 hover:bg-slate-100 hover:scale-110'><Link to='/connect'>Posts</Link></li>
