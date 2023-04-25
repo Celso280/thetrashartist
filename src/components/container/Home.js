@@ -6,42 +6,62 @@ import arts from './Arts'
 function Home() {
 
    const [isOpen, setIsOpen] = useState(false)
+   const [current, setCurrent] = useState('All')
    const [homeArray, setHomeArray] = useState(
       arts
    )
     
 const renderCategories = () => {
    const categoriesArr = [
-      'Electronic Item',
+      'All',
+      'Electronic',
       'Fabric',
       'Glass',
       'Paper',
       'Plastic',
       'Wood',
       'Styrofoam',
-      'Others' 
+      'Others'
    ]
    
    const categolist = categoriesArr.map((category, index) => (
       <div className='text-sm mx-5 my-1 px-1 md:mx-1 border-2 rounded-lg border-black ring-2 ring-slate-200 hover:scale-110'>
          <button className='my-2 uppercase' onClick={() => {
          filterItems(category)
+         setCurrent(category)
          }}>{category}</button>
       </div>
    ))
 
    return (
-      <>
-         <button className='text-sm my-1 ml-5 md:ml-1 mr-1 lg:ml-14 w-16 border-2 rounded-lg border-black ring-2 ring-slate-200 hover:scale-110' onClick={() => {
-            setHomeArray(arts)
-         }}>ALL</button>
+      <div className='flex ml-[52px]'>
          {categolist}
-      </>
+      </div>
+         
+      
    )
 }
 
-const filterItems = (category) => {
+const filterItems = (category, name) => {
    const filteredArts = arts.filter((art) => {
+      
+      if (name) {
+        
+         if (category === 'All'){
+            return(
+              art.artName.toLowerCase().includes(name.toLowerCase())
+            )
+         }
+
+         return(
+           art.category === category && art.artName.toLowerCase().includes(name.toLowerCase())
+         )
+      }
+
+      if (category === 'All'){
+         return art
+      }
+
       return(
          art.category === category   
       )  
@@ -63,11 +83,11 @@ const filterItems = (category) => {
                   </svg>
             </div>
 
-            <input
+            <input onChange= { (e) => filterItems(current, e.target.value)}
             className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
             type="text"
             id="search"
-            placeholder="Search art by ID" /> 
+            placeholder="Search art" /> 
          </div>
       </div>
       

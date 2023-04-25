@@ -1,105 +1,105 @@
 const arts = [
     {
         image: 'bird.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
       artName: 'Tweet Tweet',
         price: 10,
      location: 'Philippines'
      },
      {
         image: 'books.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Book0',
         price: 20,
      location: 'Philippines'
      },
      {
         image: 'crocs.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Buwakaw',
         price: 30,
      location: 'Philippines'
      },
      {
         image: 'dear.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Dearest',
         price: 40,
      location: 'Philippines'
      },
      {
         image: 'dolphin.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Sweesh',
         price: 50,
      location: 'Philippines'
      },
      {
         image: 'dragonfly.jpeg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Woosh',
         price: 60,
      location: 'Philippines'
      },
      {
         image: 'fan.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Windy',
         price: 70,
      location: 'Philippines'
      },
      {
      image: 'highheels.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Short to tall',
      price: 10,
      location: 'Philippines'
      },
      {
      image: 'mask.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Death Mask',
      price: 20,
      location: 'Philippines'
      },
      {
      image: 'mohwaks.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Not hairy',
      price: 30,
      location: 'Philippines'
      },
      {
      image: 'optimus.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Metalic Saviour',
      price: 40,
      location: 'Philippines'
      },
      {
      image: 'spider.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'XpiderX',
      price: 50,
      location: 'Philippines'
      },
      {
      image: 'springer.png',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Pot',
      price: 60,
      location: 'Philippines'
      },
      {
      image: 'tower.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: '50th Floor',
      price: 70,
      location: 'Philippines'
      },
      {
      image: 'turtle.jpg',
-     category: 'Electronic Item',
+     category: 'Electronic',
      artName: 'Slowly but surely?',
      price: 10,
      location: 'Philippines'
