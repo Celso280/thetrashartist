@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function ArtistProfile(user) {
+function ArtistProfile(props) {
   return (
     <div className='m-1 w-80 hover:scale-95'>
       <div>
@@ -9,10 +9,10 @@ function ArtistProfile(user) {
       </div>
       <div>
           <div className='p-2 text-sm'>
-              <p>Name: {`${user.user.first_name} ${user.user.last_name}`}</p>
+              <p>Name: {`${props.xxxx.first_name} ${props.xxxx.last_name}`}</p>
               <p>Art Sold: 100</p>
-              <p>Location: Philippines</p>
-              <p>Background: Dati adik ako eh ngaun isa na akong ganap na artist</p>
+              <p>Location: {`${props.xxxx.location}`}</p>
+              <p>Background: {`${props.xxxx.bio}`}</p>
           </div>  
       </div>
     </div>

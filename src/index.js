@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import UserLogin from "./pages/UserLogin";
 import ArtistList from "./pages/profile_section/ArtistList";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Register from "./pages/Register";
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "artist",
     element: <ArtistList />,
+  },
+  {
+    path: "register",
+    element: <Register />,
   },
   
 ]);

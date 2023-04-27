@@ -24,7 +24,7 @@ function ArtistList() {
 
       {users.map((user) => {
         return(
-          <ArtistProfile user={user}/>
+          <ArtistProfile xxxx={user}/>
         )     
       })}
 

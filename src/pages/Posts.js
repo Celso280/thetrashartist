@@ -11,7 +11,7 @@ function Posts() {
   }, [])
   
   const getUsers = async() => {
-    const response = await axios.get('http://localhost:8000/all-users')
+    const response = await axios.get('/all-users')
     setUsers(response.data)
   }
 
