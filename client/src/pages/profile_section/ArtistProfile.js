@@ -5,7 +5,7 @@ function ArtistProfile(props) {
   return (
     <div className='m-1 w-80 hover:scale-95'>
       <div>
-          <img src='sampleartist.jpg' alt='art sale'/>
+          <img src={props.xxxx.profile_picture || 'sampleartist.jpg'} alt='art sale'/>
       </div>
       <div>
           <div className='p-2 text-sm'>

@@ -80,3 +80,22 @@ app.delete('/delete-user/:id', (request, response) => {
         response.status(200).send(`User No.${id} is successfully deleted !`) 
     })
 })
+
+app.post('/auth', (request, response) => {
+
+    pool.query('SELECT email, password FROM "user" WHERE email = $1', 
+    
+    [request.body.email], (error, result) => {
+        if (error) {
+            throw error;    
+        }
+        response.send((result.rows))
+    })
+
+})
+
+if (email === results.rows){
+    console.log('User authenticated');
+}else{
+    console.log('Invalid credentials');
+}
