@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import axios from "axios";
+import FormData from 'form-data';
 
 function BuyerReg() {
   const [users, setUsers] = useState([]);
@@ -18,51 +19,52 @@ function BuyerReg() {
     setFirstName(e.target.value);
   };
 
-  console.log(firstName);
-
   const handleLastName = (e) => {
     setLastName(e.target.value);
   };
-
-  console.log(lastName);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
 
-  console.log(email);
-
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
-
-  console.log(password);
 
   const handleLocation = (e) => {
     setLocation(e.target.value);
   };
 
-  console.log(location);
-
   const handleContact = (e) => {
     setContact(e.target.value);
   };
 
-  console.log(contact);
-
   const handleBio = (e) => {
     setBio(e.target.value);
   };
-
-  console.log(bio);
-
+ 
   const handleRole = (e) => {
     setRole(e.target.value);
   };
 
   const handleProfilePicture = (e) => {
-    setProfilePicture(e.target.value);
-  };
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    axios.post('http://localhost:8000/upload-picture', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => {
+        console.log(res.data);
+        setProfilePicture(res.data.url)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    };
 
   // useEffect(() => {
   //   axios.get('http://localhost:8000/all-users')
@@ -76,8 +78,7 @@ function BuyerReg() {
   const addUser = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:8000/add-user", {
+    axios.post("http://localhost:8000/add-user", {
         first_name: firstName,
         last_name: lastName,
         profile_picture: profilePicture,
@@ -208,7 +209,7 @@ function BuyerReg() {
             </div>
 
             <div className="mb-2">
-              <p>Please select a role :</p> {" "}
+              <p>Please select a role :</p>
               <input
                 type="radio"
                 name="role"
@@ -217,7 +218,7 @@ function BuyerReg() {
                 onChange={handleRole}
               />
                 <label for="buyer">Buyer</label>
-              <br /> {" "}
+              <br />
               <input
                 type="radio"
                 name="role"

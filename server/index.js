@@ -2,10 +2,21 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const axios = require('axios');
+const FormData = require('form-data');
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
 const bodyParser = require('body-parser')
 const PORT = 8000
 
 const Pool = require('pg').Pool
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+cloudinary.config({
+  cloud_name: 'duceprwhk',
+  api_key: '242212381666781',
+  api_secret: 'gr5Y5WRTYCtucZGtOWbWnNMwhYU',
+});
 
 const pool = new Pool({
     user: process.env.user,
@@ -24,18 +35,6 @@ app.use(bodyParser.urlencoded({
 
 app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
-})
-
-app.post('/add-image', (request, response) => {
-
-    console.log(request.body);
-
-    pool.query('INSERT INTO image (image_id, art_id, images_list, created_at, edited_at) VALUES ($1, $2, $3, $4, $5)',[image_id, art_id, images_list, created_at, edited_at], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        response.status(201).send('Image succesfully added!')
-    })
 })
 
 app.get('/all-users', (request, response) => {
@@ -66,8 +65,20 @@ app.post('/add-user', (request, response) => {
             throw error;    
         }
         response.status(201).send('User succesfully added!') 
-    }) 
+    })
 })
+
+app.post('/upload-picture', upload.single('file'), (req, res) => {
+    cloudinary.uploader
+      .upload_stream({ resource_type: 'auto' }, (error, result) => {
+        if (error) {
+          res.status(500).json({ message: 'Server error' });
+        } else {
+          res.json(result);
+        }
+      })
+      .end(req.file.buffer);
+  });
 
 app.put('/update-user/:id', (request, response) => {
     const id = request.params.id
@@ -101,16 +112,7 @@ app.delete('/delete-user/:id', (request, response) => {
 //         if (error) {
 //             throw error;    
 //         }
-//         response.send((result.rows[0].password))
+//         response.send((result.rows))
 //     })
 
-//     if (request.body.password === result.rows[0].password){
-//         (error, result) => {
-//             if (error) {
-//                 throw error;
-//             }
-//             response.send('login success!')
-//         }
-//     }
 // })
-
