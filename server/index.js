@@ -2,20 +2,19 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const axios = require('axios');
-const FormData = require('form-data');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const bodyParser = require('body-parser')
 const PORT = 8000
 
 const Pool = require('pg').Pool
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 cloudinary.config({
-  cloud_name: 'duceprwhk',
-  api_key: '242212381666781',
-  api_secret: 'gr5Y5WRTYCtucZGtOWbWnNMwhYU',
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret,
 });
 
 const pool = new Pool({

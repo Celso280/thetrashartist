@@ -14,6 +14,7 @@ function BuyerReg() {
   const [bio, setBio] = useState("");
   const [role, setRole] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
+  const [isUploading, setIsUploading] = useState(false)
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
@@ -48,7 +49,9 @@ function BuyerReg() {
   };
 
   const handleProfilePicture = (e) => {
+    setIsUploading(true)
     const file = e.target.files[0];
+    
     const formData = new FormData();
     formData.append('file', file);
 
@@ -60,9 +63,11 @@ function BuyerReg() {
       .then(res => {
         console.log(res.data);
         setProfilePicture(res.data.url)
+        setIsUploading(false)
       })
       .catch(error => {
         console.error(error);
+        setIsUploading(false)
       });
     };
 
@@ -250,6 +255,7 @@ function BuyerReg() {
               <button
                 className="w-full px-4 py-2 tracking-wide transition-colors duration-200 transform bg-slate-200 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600 hover:text-white"
                 type="submit"
+                disabled = {isUploading}
               >
                 Save
               </button>
