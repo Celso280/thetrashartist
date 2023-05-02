@@ -26,6 +26,18 @@ app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
 })
 
+app.post('/add-image', (request, response) => {
+
+    console.log(request.body);
+
+    pool.query('INSERT INTO image (image_id, art_id, images_list, created_at, edited_at) VALUES ($1, $2, $3, $4, $5)',[image_id, art_id, images_list, created_at, edited_at], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(201).send('Image succesfully added!')
+    })
+})
+
 app.get('/all-users', (request, response) => {
     pool.query('SELECT * FROM "user"', (error, results) => {
         if (error) {
@@ -81,21 +93,24 @@ app.delete('/delete-user/:id', (request, response) => {
     })
 })
 
-app.post('/auth', (request, response) => {
+// app.post('/auth', (request, response) => {
 
-    pool.query('SELECT email, password FROM "user" WHERE email = $1', 
+//     pool.query('SELECT email, password FROM "user" WHERE email = $1', 
     
-    [request.body.email], (error, result) => {
-        if (error) {
-            throw error;    
-        }
-        response.send((result.rows))
-    })
+//     [request.body.email], (error, result) => {
+//         if (error) {
+//             throw error;    
+//         }
+//         response.send((result.rows[0].password))
+//     })
 
-})
+//     if (request.body.password === result.rows[0].password){
+//         (error, result) => {
+//             if (error) {
+//                 throw error;
+//             }
+//             response.send('login success!')
+//         }
+//     }
+// })
 
-if (email === results.rows){
-    console.log('User authenticated');
-}else{
-    console.log('Invalid credentials');
-}
