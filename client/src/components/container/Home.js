@@ -7,22 +7,20 @@ function Home() {
 
    const [isOpen, setIsOpen] = useState(false)
    const [current, setCurrent] = useState('All')
-   const [homeArray, setHomeArray] = useState(
-      arts
-   )
+   const [homeArray, setHomeArray] = useState(arts)
     
-const renderCategories = () => {
-   const categoriesArr = [
-      'All',
-      'Electronic',
-      'Fabric',
-      'Glass',
-      'Paper',
-      'Plastic',
-      'Wood',
-      'Styrofoam',
-      'Others'
-   ]
+   const renderCategories = (additionalClassName) => {
+      const categoriesArr = [
+         'All',
+         'Electronic',
+         'Fabric',
+         'Glass',
+         'Paper',
+         'Plastic',
+         'Wood',
+         'Styrofoam',
+         'Others'
+      ]
    
    const categolist = categoriesArr.map((category, index) => (
       <div className='text-sm mx-5 my-1 px-1 md:mx-1 border-2 rounded-lg border-black ring-2 ring-slate-200 hover:scale-110'>
@@ -34,34 +32,33 @@ const renderCategories = () => {
    ))
 
    return (
-      <div className='flex ml-[52px]'>
+      <div className={`${additionalClassName} flex`}>
          {categolist}
       </div>
-         
-      
    )
 }
 
-const filterItems = (category, name) => {
+const filterItems = (category, searchQuery) => {
    const filteredArts = arts.filter((art) => {
       
-      if (name) {
-        
+      // ang codeblock na ito ay pineferporm lng kpag nag ssearch si user line 45-56
+      if (searchQuery) { 
+      //searchQuery ito yung tinatype ni user sa search bar
          if (category === 'All'){
             return(
-              art.artName.toLowerCase().includes(name.toLowerCase())
+              art.artName.toLowerCase().includes(searchQuery.toLowerCase())
             )
          }
 
          return(
-           art.category === category && art.artName.toLowerCase().includes(name.toLowerCase())
+           art.category === category && art.artName.toLowerCase().includes(searchQuery.toLowerCase())
          )
-      }
+      } 
 
+      //ito nmn ang code kpag hnd nagssearch si user line 59-68
       if (category === 'All'){
          return art
       }
-
       return(
          art.category === category   
       )  
@@ -72,7 +69,7 @@ const filterItems = (category, name) => {
   return (
     <div>
       <div className='hidden lg:flex font-semibold mt-5'>
-         {renderCategories()}    
+         {renderCategories('ml-[52px]')}    
       </div>
 
       <div className='w-60 border-2 border-black rounded-md ml-14'>
@@ -102,8 +99,9 @@ const filterItems = (category, name) => {
          </button>
 
          {isOpen && (
-            <div className='absolute flex flex-col items-start my-10 rounded-lg bg-white'>
-               {renderCategories()} 
+            <div className='absolute my-10 bg-white'>
+               {/* sa line 104 nag papasaa tayo ng classname sa line 35 */}
+               {renderCategories('flex flex-col text-center')} 
             </div>
                )}
       </div>

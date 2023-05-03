@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from "axios";
 import FormData from 'form-data';
 
 function BuyerReg() {
-  const [users, setUsers] = useState([]);
+ 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -48,6 +48,7 @@ function BuyerReg() {
     setRole(e.target.value);
   };
 
+
   const handleProfilePicture = (e) => {
     setIsUploading(true)
     const file = e.target.files[0];
@@ -70,15 +71,6 @@ function BuyerReg() {
         setIsUploading(false)
       });
     };
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:8000/all-users')
-  //     .then((response) => {
-  //       setUsers(response.data)
-  //     }).catch(function (error) {
-  //       console.log(error);
-  //     })
-  // }, [])
 
   const addUser = (e) => {
     e.preventDefault();
