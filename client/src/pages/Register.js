@@ -62,7 +62,7 @@ function BuyerReg() {
         },
       })
       .then(res => {
-        console.log(res.data);
+        console.log(`this is upload-picture ${res.data}`);
         setProfilePicture(res.data.url)
         setIsUploading(false)
       })
@@ -87,7 +87,7 @@ function BuyerReg() {
         role: role,
       })
       .then(function (response) {
-        console.log(response);
+        console.log(`this is add user ${response.data}`);
       })
       .catch(function (error) {
         console.log(error);

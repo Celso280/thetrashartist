@@ -13,18 +13,6 @@ function Sell() {
                 for="text"
                 className="block text-sm font-semibold text-gray-800"
               >
-                Artist Name
-              </label>
-              <input
-                type="text"
-                className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div className="mb-2">
-              <label
-                for="text"
-                className="block text-sm font-semibold text-gray-800"
-              >
                 Art Name
               </label>
               <input
