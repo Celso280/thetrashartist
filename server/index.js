@@ -12,8 +12,10 @@ const PORT = 8000
 
 const Pool = require('pg').Pool
 
+//set-up
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+//provided by cloudinary line 20-22
 cloudinary.config({
   cloud_name: process.env.cloud_name,
   api_key: process.env.api_key,
@@ -66,11 +68,13 @@ app.post('/add-user', (request, response) => {
 
     const newUser = pool.query('INSERT INTO "user" (first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [first_name, last_name, profile_picture, bio, email, encryptedPassword, location, contact, role, created_at, edited_at])
 
-    const token = generateJwt(newUser.rows[0])
-    response.json({token})
+    // const token = generateJwt(newUser.rows[0])
+    // response.json({token})
+    response.send('uses added succesfully')
 })
 
 app.post('/upload-picture', upload.single('file'), (req, res) => {
+    //provided by cloudinary docs line 77-86
     cloudinary.uploader
       .upload_stream({ resource_type: 'auto' }, (error, result) => {
         if (error) {

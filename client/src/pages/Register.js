@@ -4,58 +4,77 @@ import axios from "axios";
 import FormData from 'form-data';
 
 function BuyerReg() {
- 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [location, setLocation] = useState("");
-  const [contact, setContact] = useState("");
-  const [bio, setBio] = useState("");
-  const [role, setRole] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
+
+  //line 8 is an object base
+  const [user, setUser] = useState({})
   const [isUploading, setIsUploading] = useState(false)
 
   const handleFirstName = (e) => {
-    setFirstName(e.target.value);
+    let value = e.target.value;
+    value = value.replace(/[^A-Za-z\s]/gi, "");
+    setUser({
+      ...user, firstName: value
+    })
   };
 
   const handleLastName = (e) => {
-    setLastName(e.target.value);
+    let value = e.target.value;
+    value = value.replace(/[^A-Za-z\s]/gi, "");
+    setUser({
+      ...user, lastName: value
+    })
   };
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
+    let value = e.target.value
+    setUser({
+      ...user, email: value
+    })
   };
 
   const handlePassword = (e) => {
-    setPassword(e.target.value);
+    let value = e.target.value
+    setUser({
+      ...user, password: value
+    })
   };
 
   const handleLocation = (e) => {
-    setLocation(e.target.value);
+    let value = e.target.value
+    setUser({
+      ...user, location: value
+    })
   };
 
   const handleContact = (e) => {
-    setContact(e.target.value);
+    let value = e.target.value
+    setUser({
+      ...user, contact: value
+    })
   };
 
   const handleBio = (e) => {
-    setBio(e.target.value);
+    let value = e.target.value
+    setUser({
+      ...user, bio: value
+    })
   };
  
   const handleRole = (e) => {
-    setRole(e.target.value);
+    let value = e.target.value
+    setUser({
+      ...user, role: value
+    })
   };
-
 
   const handleProfilePicture = (e) => {
     setIsUploading(true)
     const file = e.target.files[0];
     
+    //FormData is used when sending files to the backend so the endpoint can read it
     const formData = new FormData();
     formData.append('file', file);
-
+    //line 78-82 is uploading to cloudinary
     axios.post('http://localhost:8000/upload-picture', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -63,7 +82,9 @@ function BuyerReg() {
       })
       .then(res => {
         console.log(`this is upload-picture ${res.data}`);
-        setProfilePicture(res.data.url)
+        setUser({
+          ...user, profilePicture: res.data.url
+        })
         setIsUploading(false)
       })
       .catch(error => {
@@ -76,15 +97,15 @@ function BuyerReg() {
     e.preventDefault();
 
     axios.post("http://localhost:8000/add-user", {
-        first_name: firstName,
-        last_name: lastName,
-        profile_picture: profilePicture,
-        bio: bio,
-        email: email,
-        password: password,
-        location: location,
-        contact: contact,
-        role: role,
+        first_name: user.firstName,
+        last_name: user.lastName,
+        profile_picture: user.profilePicture,
+        bio: user.bio,
+        email: user.email,
+        password: user.password,
+        location: user.location,
+        contact: user.contact,
+        role: user.role,
       })
       .then(function (response) {
         console.log(`this is add user ${response.data}`);
@@ -104,7 +125,6 @@ function BuyerReg() {
               <label
                 for="text"
                 className="block text-sm font-semibold text-gray-800"
-                pattern="[a-zA-Z]*"
               >
                 First Name
               </label>
@@ -112,13 +132,13 @@ function BuyerReg() {
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 onChange={handleFirstName}
+                value={user.firstName}
               />
             </div>
             <div className="mb-2">
               <label
                 for="text"
                 className="block text-sm font-semibold text-gray-800"
-                pattern="[a-zA-Z]*"
               >
                 Last Name
               </label>
@@ -126,6 +146,7 @@ function BuyerReg() {
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 onChange={handleLastName}
+                value={user.lastName}
               />
             </div>
             <div className="mb-2">
