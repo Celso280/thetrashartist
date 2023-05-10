@@ -104,6 +104,7 @@ function BuyerReg() {
               <label
                 for="text"
                 className="block text-sm font-semibold text-gray-800"
+                pattern="[a-zA-Z]*"
               >
                 First Name
               </label>
@@ -117,6 +118,7 @@ function BuyerReg() {
               <label
                 for="text"
                 className="block text-sm font-semibold text-gray-800"
+                pattern="[a-zA-Z]*"
               >
                 Last Name
               </label>
