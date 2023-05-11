@@ -6,6 +6,13 @@ import axios from 'axios'
 
 function ArtistList() {
 
+  // line 10-14 is use for exclusive end points
+  // const config = {
+  //   headers:{
+  //     Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+  //   }
+  // };
+
   const [users, setUsers] = useState([])
 
   useEffect(() => {
@@ -13,7 +20,9 @@ function ArtistList() {
   }, [])
   
   const getUsers = async() => {
+    // you can insert a config variable after the '/all-users' to make it only accessible to those who have JWT token
     const response = await axios.get('/all-users')
+    
     setUsers(response.data)
   }
 

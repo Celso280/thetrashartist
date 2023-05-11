@@ -1,8 +1,44 @@
-import React from "react";
+import React, {useState} from "react";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function UserLogin() {
+
+  const [user, setUser] = useState({})
+
+  const handleEmail = (e) => {
+    let value = e.target.value
+    setUser({
+      ...user, email: value
+    })
+    console.log(`im trying to log in my email ${value}`);
+  };
+
+  const handlePassword = (e) => {
+    let value = e.target.value
+    setUser({
+      ...user, password: value
+    })
+    console.log(`im trying to log in my password ${value}`);
+  };
+
+  const loginUser = (e) => {
+    e.preventDefault();
+
+    axios.post("http://localhost:8000/log-in", {
+        email: user.email,
+        password: user.password,  
+      })
+      .then(function (response) {
+        // in line 35 we are storing the token in localstorage
+        localStorage.setItem('jwt_token',response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="">
       <NavBar />
@@ -11,7 +47,7 @@ function UserLogin() {
           <h1 className="text-3xl font-semibold text-center uppercase">
             Sign in
           </h1>
-          <form className="mt-6">
+          <form className="mt-6" onSubmit={loginUser}>
             <div className="mb-2">
               <label
                 for="email"
@@ -22,6 +58,7 @@ function UserLogin() {
               <input
                 type="email"
                 className="block w-full px-4 py-2 mt-2 bg-white text-slate-700 border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                onChange={handleEmail}
               />
             </div>
             <div className="mb-2">
@@ -34,11 +71,14 @@ function UserLogin() {
               <input
                 type="password"
                 className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                onChange={handlePassword}
               />
             </div>
             <span className="text-xs hover:underline hover:cursor-pointer hover:text-blue-700">Forgot password ?</span>
             <div className="mt-6">
-              <button className="w-full px-4 py-2 tracking-wide transition-colors duration-200 transform bg-slate-200 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600 hover:text-white">
+              <button 
+              className="w-full px-4 py-2 tracking-wide transition-colors duration-200 transform bg-slate-200 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600 hover:text-white"
+              type="submit">
                 Login
               </button>
             </div>

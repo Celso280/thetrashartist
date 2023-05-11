@@ -8,6 +8,7 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const bodyParser = require('body-parser')
 const bcrypt = require("bcrypt");
+const verifiedToken = require('./middleware/auth')
 const PORT = 8000
 
 const Pool = require('pg').Pool
@@ -15,7 +16,7 @@ const Pool = require('pg').Pool
 //set-up
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-//provided by cloudinary line 20-22
+//provided by cloudinary line 20-22 cloud_name api_key api_secret
 cloudinary.config({
   cloud_name: process.env.cloud_name,
   api_key: process.env.api_key,
@@ -63,18 +64,26 @@ app.get('/get-user/:id', (request, response) => {
 app.post('/add-user', (request, response) => {
 
     const {first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at} = request.body
-
+    //line 67 (password, 10) is from the request.body
     const encryptedPassword = bcrypt.hashSync(password, 10)
 
-    const newUser = pool.query('INSERT INTO "user" (first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [first_name, last_name, profile_picture, bio, email, encryptedPassword, location, contact, role, created_at, edited_at])
+     pool.query('INSERT INTO "user" (first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [first_name, last_name, profile_picture, bio, email, encryptedPassword, location, contact, role, created_at, edited_at], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        // line 75 is for generating a token in add-user end point, after go to front end register.js line 111
+        const generatedToken = generateJwt({...request.body, password:encryptedPassword})
+        response.status(201).json(generatedToken)   
+    })
 
+    // line 72 73 is resulting in error
     // const token = generateJwt(newUser.rows[0])
     // response.json({token})
-    response.send('uses added succesfully')
+    
 })
 
 app.post('/upload-picture', upload.single('file'), (req, res) => {
-    //provided by cloudinary docs line 77-86
+    //provided by cloudinary docs line 79-88
     cloudinary.uploader
       .upload_stream({ resource_type: 'auto' }, (error, result) => {
         if (error) {
@@ -110,4 +119,19 @@ app.delete('/delete-user/:id', (request, response) => {
     })
 })
 
+app.post('/log-in', (request, response) => {
+    const {email, password}  = request.body
+    pool.query('SELECT email, password FROM "user" WHERE email = $1', [email], (error, results) =>{
+        if (error) {
+            throw error;
+        }
+        const compare = bcrypt.compareSync(password, results.rows[0].password)
+        if (compare) {
+            const generatedToken = generateJwt({...request.body, password:results.rows[0].password})
+            response.status(201).json(generatedToken)
+        }
+        console.log(compare);
+        response.status(200).json(results.rows)
+    })
+})
 

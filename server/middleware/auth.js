@@ -1,8 +1,8 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 
-const auth = (request, response, next) => {
-    const token = request.header('Authorization')
+const verifyToken = (request, response, next) => {
+    const token = request.headers.authorization
     // check kung merong token line 8 - 12
     if (!token){
         return(
@@ -12,7 +12,7 @@ const auth = (request, response, next) => {
 
     // token verification
     try {
-        jwt.verify(token.slice(7), process.env.jwt_secret, (error, user) => {
+        jwt.verify(token.split(" ")[1], process.env.jwt_secret, (error, user) => {
             if(error){
                 return(
                     response.sendStatus(403)
@@ -28,5 +28,5 @@ const auth = (request, response, next) => {
    
 }
 
-module.exports = { auth }
+module.exports = verifyToken
 

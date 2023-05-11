@@ -108,7 +108,8 @@ function BuyerReg() {
         role: user.role,
       })
       .then(function (response) {
-        console.log(`this is add user ${response.data}`);
+        localStorage.setItem('jwt_token',response.data)
+        console.log(` this is token ${response.data}`);
       })
       .catch(function (error) {
         console.log(error);
