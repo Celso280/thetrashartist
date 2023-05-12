@@ -10,12 +10,15 @@ import UserLogin from "./pages/UserLogin";
 import ArtistList from "./pages/profile_section/ArtistList";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from "./pages/Register";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from "./context/authcontext";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
     path: "about",
@@ -52,7 +55,10 @@ let root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <ToastContainer/>
+      <RouterProvider router={router} />
+    </AuthProvider> 
   </React.StrictMode>
 );
 

@@ -1,9 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import { AuthContext } from "../context/authcontext";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
+
 function NavBar() {
+
+    const context = useContext(AuthContext)
 
     const [nav, setNav] = useState(false)
 
@@ -13,6 +17,7 @@ function NavBar() {
 
   return (
     <div className='pt-3 h-9 fixed w-full top-0 pr-4 font-bold z-50'>
+        {/* ? if undefined not continue line 31 */}
         
         <div className='flex justify-between items-center mx-auto px-4'>
             <div className='flex h-20'>
@@ -23,7 +28,7 @@ function NavBar() {
                 <li className='p-4'><Link to='/about'>ABOUT</Link></li>
                 <li className='p-4'><Link to='/artist'>ARTISTS</Link></li>
                 <li className='p-4'><Link to='/connect'>POSTS</Link></li>
-                <li className='p-4'><Link to='/sell'>SELL</Link></li>
+                {context.user?.result[0]?.role==='artist' && <li className='p-4'><Link to='/sell'>SELL</Link></li>}
                 <div className='text-4xl self-center'>
                     <Link to='/login'><FaUserCircle className='mr-2'/></Link>
                 </div>

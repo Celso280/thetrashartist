@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from "axios";
 import FormData from 'form-data';
+import { toast } from 'react-toastify';
 
 function BuyerReg() {
 
   //line 8 is an object base
   const [user, setUser] = useState({})
   const [isUploading, setIsUploading] = useState(false)
+  const [isSame, setIsSame] = useState(true)
 
   const handleFirstName = (e) => {
     let value = e.target.value;
@@ -109,12 +111,26 @@ function BuyerReg() {
       })
       .then(function (response) {
         localStorage.setItem('jwt_token',response.data)
-        console.log(` this is token ${response.data}`);
+        toast.success(`Registered successfully!`)
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  const confirmPassword = (e) => {
+    
+    const initialPassword = user.password
+    const confirm = e.target.value
+
+    console.log(`The confirm password "${confirm}" ${initialPassword.includes(confirm) ? 'is' : 'is not'} in the same`); 
+
+    if (initialPassword.includes(confirm)) {
+      setIsSame(true)
+    }else {
+      setIsSame(false)
+    }
+  }
 
   return (
     <div>
@@ -178,14 +194,17 @@ function BuyerReg() {
             </div>
             <div className="mb-2">
               <label
-                for="password"
+                for="error"
                 className="block text-sm font-semibold text-gray-800"
               >
                 Confirm Password
               </label>
               <input
                 type="password"
-                className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                // className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md  focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40" 
+                className={`block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md ${isSame ? 'focus:border-slate-400 focus:ring-slate-300' : 'focus:border-red-600 focus:ring-red-600'} focus:outline-none focus:ring focus:ring-opacity-40`}
+                id="error"
+                onChange={confirmPassword}
               />
             </div>
             <div className="mb-2">

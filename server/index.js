@@ -8,7 +8,8 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const bodyParser = require('body-parser')
 const bcrypt = require("bcrypt");
-const verifiedToken = require('./middleware/auth')
+const verifyToken = require('./middleware/auth')
+
 const PORT = 8000
 
 const Pool = require('pg').Pool
@@ -48,6 +49,16 @@ app.get('/all-users', (request, response) => {
             throw error;
         }
         response.status(200).json(results.rows)
+        
+    })
+})
+
+app.get('/all-artists', (request, response) => {
+    pool.query(`SELECT * FROM "user" WHERE role = 'artist'`, (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows)  
     })
 })
 
@@ -75,11 +86,6 @@ app.post('/add-user', (request, response) => {
         const generatedToken = generateJwt({...request.body, password:encryptedPassword})
         response.status(201).json(generatedToken)   
     })
-
-    // line 72 73 is resulting in error
-    // const token = generateJwt(newUser.rows[0])
-    // response.json({token})
-    
 })
 
 app.post('/upload-picture', upload.single('file'), (req, res) => {
@@ -121,17 +127,20 @@ app.delete('/delete-user/:id', (request, response) => {
 
 app.post('/log-in', (request, response) => {
     const {email, password}  = request.body
-    pool.query('SELECT email, password FROM "user" WHERE email = $1', [email], (error, results) =>{
+    pool.query('SELECT email, password, role FROM "user" WHERE email = $1', [email], (error, results) =>{
         if (error) {
             throw error;
         }
         const compare = bcrypt.compareSync(password, results.rows[0].password)
         if (compare) {
             const generatedToken = generateJwt({...request.body, password:results.rows[0].password})
-            response.status(201).json(generatedToken)
+            response.status(201).json({
+                "generatedToken":generatedToken,
+                "result":results.rows
+            })
         }
-        console.log(compare);
-        response.status(200).json(results.rows)
+        // console.log(compare);
+        // response.status(200).json(results.rows)
     })
 })
 

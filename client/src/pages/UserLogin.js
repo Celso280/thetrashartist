@@ -1,10 +1,15 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import { AuthContext } from "../context/authcontext";
 import NavBar from "../components/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import axios from "axios";
+
 
 function UserLogin() {
 
+  const context = useContext(AuthContext)
+  const navigate = useNavigate()
   const [user, setUser] = useState({})
 
   const handleEmail = (e) => {
@@ -33,9 +38,13 @@ function UserLogin() {
       .then(function (response) {
         // in line 35 we are storing the token in localstorage
         localStorage.setItem('jwt_token',response.data)
+        navigate("/home");
+        toast.success(`Welcome back ${user.email}`)
+        context.setUser(response.data)
+        console.log(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(`Ooops, there seems to be a problem with your account !`)
       });
   };
 
