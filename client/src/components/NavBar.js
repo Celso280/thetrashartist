@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react'
-import { AuthContext } from "../context/authcontext";
-import { FaUserCircle } from "react-icons/fa";
+import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
@@ -8,7 +7,6 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 function NavBar() {
 
     const context = useContext(AuthContext)
-
     const [nav, setNav] = useState(false)
 
     function handleNav(){
@@ -29,8 +27,10 @@ function NavBar() {
                 <li className='p-4'><Link to='/artist'>ARTISTS</Link></li>
                 <li className='p-4'><Link to='/connect'>POSTS</Link></li>
                 {context.user?.result[0]?.role==='artist' && <li className='p-4'><Link to='/sell'>SELL</Link></li>}
-                <div className='text-4xl self-center'>
-                    <Link to='/login'><FaUserCircle className='mr-2'/></Link>
+                <div className='self-center bg-slate-700 rounded-lg text-white px-2 py-1'>
+                    {context.user ? <button onClick={() => {
+                        context.setUser(undefined)
+                    }}>Logout</button> : <Link to='/login'><button>Login</button></Link>}
                 </div>
             </ul> 
             <div onClick={handleNav} className='block md:hidden'>
@@ -45,8 +45,8 @@ function NavBar() {
                     <li className='p-4 hover:bg-slate-100 hover:scale-110'><Link to='/artist'>Artists</Link></li>
                     <li className='p-4 hover:bg-slate-100 hover:scale-110'><Link to='/connect'>Posts</Link></li>
                     <li className='p-4 hover:bg-slate-100 hover:scale-110'><Link to='/sell'>Sell</Link></li>
-                    <div className='p-4 hover:bg-slate-100 hover:scale-110 text-4xl'>
-                        <Link to='/login'><FaUserCircle/></Link>
+                    <div className='px-2 py-1 w-fit hover:scale-110 bg-slate-700 rounded-lg text-white'>
+                        <Link to='/login'><button>Login</button></Link>
                     </div>
                 </ul>   
             </div>

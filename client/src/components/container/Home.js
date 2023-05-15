@@ -109,7 +109,7 @@ const filterItems = (category, searchQuery) => {
       <div className='flex font-semibold flex-wrap justify-evenly max-h-screen overflow-auto px-10 mt-5'>
             {homeArray.map((art, index) => ( 
                <div className='border-2 border-black mb-3 hover:scale-95'>
-                  <div>
+                  {/* <div>
                      <img className='w-60 h-44' src={art.image} alt='' />
                   </div>
                   <div className='p-2 text-sm ml-4'>
@@ -117,7 +117,7 @@ const filterItems = (category, searchQuery) => {
                      <p>Art name: {art.artName} </p>
                      <p>Price: {art.price} </p>
                      <p>Location: {art.location} </p>
-                  </div>
+                  </div> */}
                </div>
             ))}
       </div>

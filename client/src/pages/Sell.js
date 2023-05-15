@@ -8,6 +8,25 @@ function Sell() {
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
         <div className="w-full p-6 m-auto rounded-md sm:max-w-xl mt-10">
           <form className="mt-6">
+            <div>
+              <p className="font-semibold">Select your art categories:</p>
+              <input type="checkbox" id="Electronic" name="Electronic" value="Electronic"/>
+              <label for="Electronic"> Electronic </label><br/>
+              <input type="checkbox" id="Fabric" name="Fabric" value="Fabric"/>
+              <label for="Fabric"> Fabric </label><br/>
+              <input type="checkbox" id="Glass" name="Glass" value="Glass"/>
+              <label for="Glass"> Glass </label><br/>
+              <input type="checkbox" id="Paper" name="Paper" value="Paper"/>
+              <label for="Paper"> Paper </label><br/>
+              <input type="checkbox" id="Plastic" name="Plastic" value="Plastic"/>
+              <label for="Plastic"> Plastic </label><br/>
+              <input type="checkbox" id="Wood" name="Wood" value="Wood"/>
+              <label for="Wood"> Wood </label><br/>
+              <input type="checkbox" id="Styrofoam" name="Styrofoam" value="Styrofoam"/>
+              <label for="Styrofoam"> Styrofoam </label><br/>
+              <input type="checkbox" id="Others" name="Others" value="Others"/>
+              <label for="Others"> Others </label><br/><br/>
+            </div>
             <div className="mb-2">
               <label
                 for="text"

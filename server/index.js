@@ -43,6 +43,8 @@ app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
 })
 
+// USER TABLE
+
 app.get('/all-users', (request, response) => {
     pool.query('SELECT * FROM "user"', (error, results) => {
         if (error) {
@@ -143,4 +145,65 @@ app.post('/log-in', (request, response) => {
         // response.status(200).json(results.rows)
     })
 })
+
+// CATEGORY_LISTS TABLE
+
+app.get('/all-categories', (request, response) => {
+    pool.query('SELECT * FROM category_lists', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows)
+        
+    })
+})
+
+app.get('/get-category/:id', (request, response) => {
+    const id = request.params.id
+    pool.query('SELECT * FROM category_lists WHERE category_id = $1', [id], (error, results) =>{
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows)
+    })
+})
+
+app.post('/add-category', (request, response) => {
+
+    const {category_name, availability_status, created_at, edited_at} = request.body
+    
+
+     pool.query('INSERT INTO category_lists (category_name, availability_status, created_at, edited_at) VALUES ($1, $2, $3, $4)', [category_name, availability_status, created_at, edited_at], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(201).send('Category added successfuly!')
+    })
+})
+
+app.put('/update-category/:id', (request, response) => {
+    const id = request.params.id
+    const {category_name, availability_Status} = request.body
+
+    pool.query('UPDATE category_lists SET category_name = $1 WHERE category_id = $2', [category_name, id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send('User updated successfully!') 
+    })
+
+})
+
+app.delete('/delete-category/:id', (request, response) => {
+    const id = request.params.id
+    
+    pool.query('DELETE FROM category_lists WHERE category_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send(`Category No.${id} is successfully deleted !`) 
+    })
+})
+
+// CATEGORY_TYPES TABLE
 

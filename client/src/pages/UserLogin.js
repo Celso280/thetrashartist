@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import { AuthContext } from "../context/authcontext";
+import { AuthContext } from "../context/AuthContext";
 import NavBar from "../components/NavBar";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
@@ -11,13 +11,12 @@ function UserLogin() {
   const context = useContext(AuthContext)
   const navigate = useNavigate()
   const [user, setUser] = useState({})
-
+  
   const handleEmail = (e) => {
     let value = e.target.value
     setUser({
       ...user, email: value
     })
-    console.log(`im trying to log in my email ${value}`);
   };
 
   const handlePassword = (e) => {
@@ -25,7 +24,6 @@ function UserLogin() {
     setUser({
       ...user, password: value
     })
-    console.log(`im trying to log in my password ${value}`);
   };
 
   const loginUser = (e) => {

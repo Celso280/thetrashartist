@@ -122,9 +122,7 @@ function BuyerReg() {
     
     const initialPassword = user.password
     const confirm = e.target.value
-
-    console.log(`The confirm password "${confirm}" ${initialPassword.includes(confirm) ? 'is' : 'is not'} in the same`); 
-
+ 
     if (initialPassword.includes(confirm)) {
       setIsSame(true)
     }else {
