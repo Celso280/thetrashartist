@@ -76,7 +76,7 @@ function BuyerReg() {
     //FormData is used when sending files to the backend so the endpoint can read it
     const formData = new FormData();
     formData.append('file', file);
-    //line 78-82 is uploading to cloudinary
+    //line 80-84 is uploading to cloudinary
     axios.post('http://localhost:8000/upload-picture', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -110,7 +110,8 @@ function BuyerReg() {
         role: user.role,
       })
       .then(function (response) {
-        localStorage.setItem('jwt_token',response.data)
+        localStorage.setItem('jwt_token',response.data.token)
+        localStorage.setItem('id',response.data.id)
         toast.success(`Registered successfully!`)
       })
       .catch(function (error) {

@@ -43,6 +43,19 @@ app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
 })
 
+app.post('/upload-picture', upload.single('file'), (req, res) => {
+    //provided by cloudinary docs line 79-88
+    cloudinary.uploader
+      .upload_stream({ resource_type: 'auto' }, (error, result) => {
+        if (error) {
+          res.status(500).json({ message: 'Server error' });
+        } else {
+          res.json(result);
+        }
+      })
+      .end(req.file.buffer);
+  });
+
 // USER TABLE
 
 app.get('/all-users', (request, response) => {
@@ -80,28 +93,15 @@ app.post('/add-user', (request, response) => {
     //line 67 (password, 10) is from the request.body
     const encryptedPassword = bcrypt.hashSync(password, 10)
 
-     pool.query('INSERT INTO "user" (first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [first_name, last_name, profile_picture, bio, email, encryptedPassword, location, contact, role, created_at, edited_at], (error, results) => {
+     pool.query('INSERT INTO "user" (first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING user_id', [first_name, last_name, profile_picture, bio, email, encryptedPassword, location, contact, role, created_at, edited_at], (error, results) => {
         if (error) {
             throw error;
         }
         // line 75 is for generating a token in add-user end point, after go to front end register.js line 111
         const generatedToken = generateJwt({...request.body, password:encryptedPassword})
-        response.status(201).json(generatedToken)   
+        response.status(201).json({"token":generatedToken,"id":results.rows[0].user_id})   
     })
 })
-
-app.post('/upload-picture', upload.single('file'), (req, res) => {
-    //provided by cloudinary docs line 79-88
-    cloudinary.uploader
-      .upload_stream({ resource_type: 'auto' }, (error, result) => {
-        if (error) {
-          res.status(500).json({ message: 'Server error' });
-        } else {
-          res.json(result);
-        }
-      })
-      .end(req.file.buffer);
-  });
 
 app.put('/update-user/:id', (request, response) => {
     const id = request.params.id
@@ -129,7 +129,7 @@ app.delete('/delete-user/:id', (request, response) => {
 
 app.post('/log-in', (request, response) => {
     const {email, password}  = request.body
-    pool.query('SELECT email, password, role FROM "user" WHERE email = $1', [email], (error, results) =>{
+    pool.query('SELECT email, password, role, user_id FROM "user" WHERE email = $1', [email], (error, results) =>{
         if (error) {
             throw error;
         }
@@ -143,6 +143,20 @@ app.post('/log-in', (request, response) => {
         }
         // console.log(compare);
         // response.status(200).json(results.rows)
+    })
+})
+
+// ART TABLE
+
+app.post('/add-art', (request, response) => {
+
+    const {art_name, price, location, description, upload_image, user_id} = request.body
+    
+     pool.query('INSERT INTO arts (art_name, price, location, description, upload_image, user_id, registration_status, availability_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [art_name, price, location, description, upload_image, user_id, 'pending' , 'available' ], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(201).send('art added wait for approval of the admin to accept')   
     })
 })
 
