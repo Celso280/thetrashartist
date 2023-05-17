@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import About from "./pages/About";
-import Posts from "./pages/Posts";
+import Admin from "./pages/Admin";
 import Sell from "./pages/Sell";
 import Home from "./pages/Home";
 import UserLogin from "./pages/UserLogin";
@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./context/AuthContext";
+import GetArtFromDb from "./pages/admin_section/GetArtFromDb";
 
 
 
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: "connect",
-    element: <Posts />,
+    element: <GetArtFromDb />,
   },
   {
     path: "sell",

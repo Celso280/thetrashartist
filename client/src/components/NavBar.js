@@ -25,8 +25,8 @@ function NavBar() {
             <ul className='hidden md:flex md:space-x-2 lg:space-x-10'>
                 <li className='p-4'><Link to='/about'>ABOUT</Link></li>
                 <li className='p-4'><Link to='/artist'>ARTISTS</Link></li>
-                <li className='p-4'><Link to='/connect'>POSTS</Link></li>
                 {context.user?.result[0]?.role==='artist' && <li className='p-4'><Link to='/sell'>SELL</Link></li>}
+                {context.user?.result[0]?.role==='admin' && <li className='p-4'><Link to='/connect'>ADMIN</Link></li>}
                 <div className='self-center bg-slate-700 rounded-lg text-white px-2 py-1'>
                     {context.user ? <button onClick={() => {
                         context.setUser(undefined)

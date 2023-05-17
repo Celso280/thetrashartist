@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { AiOutlineCaretUp, AiOutlineCaretDown} from 'react-icons/ai'
+import axios from 'axios'
 import arts from './Arts'
 
 
@@ -7,7 +8,19 @@ function Home() {
 
    const [isOpen, setIsOpen] = useState(false)
    const [current, setCurrent] = useState('All')
-   const [homeArray, setHomeArray] = useState(arts)
+   const [homeArray, setHomeArray] = useState([])
+   const [arts, setArts] = useState([])
+
+   useEffect(() => {
+      getArts()
+   }, [])
+   
+   const getArts = async() => {
+      // you can insert a config variable after the '/all-users' to make it only accessible to those who have JWT token
+      const response = await axios.get('/all-arts/approved')
+      setArts(response.data)
+      setHomeArray(response.data)
+   }
     
    const renderCategories = (additionalClassName) => {
       const categoriesArr = [
@@ -46,12 +59,12 @@ const filterItems = (category, searchQuery) => {
       //searchQuery ito yung tinatype ni user sa search bar
          if (category === 'All'){
             return(
-              art.artName.toLowerCase().includes(searchQuery.toLowerCase())
+              art.art_name.toLowerCase().includes(searchQuery.toLowerCase())
             )
          }
 
          return(
-           art.category === category && art.artName.toLowerCase().includes(searchQuery.toLowerCase())
+           art.category === category && art.art_name.toLowerCase().includes(searchQuery.toLowerCase())
          )
       } 
 
@@ -109,15 +122,15 @@ const filterItems = (category, searchQuery) => {
       <div className='flex font-semibold flex-wrap justify-evenly max-h-screen overflow-auto px-10 mt-5'>
             {homeArray.map((art, index) => ( 
                <div className='border-2 border-black mb-3 hover:scale-95'>
-                  {/* <div>
-                     <img className='w-60 h-44' src={art.image} alt='' />
+                  <div>
+                     <img className='w-60 h-44' src={art.upload_image} alt='' />
                   </div>
                   <div className='p-2 text-sm ml-4'>
                      <p>Category: {art.category} </p>
-                     <p>Art name: {art.artName} </p>
+                     <p>Art name: {art.art_name} </p>
                      <p>Price: {art.price} </p>
                      <p>Location: {art.location} </p>
-                  </div> */}
+                  </div>
                </div>
             ))}
       </div>

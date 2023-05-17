@@ -43,6 +43,25 @@ app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
 })
 
+app.post('/log-in', (request, response) => {
+    const {email, password}  = request.body
+    pool.query('SELECT email, password, role, user_id FROM "user" WHERE email = $1', [email], (error, results) =>{
+        if (error) {
+            throw error;
+        }
+        const compare = bcrypt.compareSync(password, results.rows[0].password)
+        if (compare) {
+            const generatedToken = generateJwt({...request.body, password:results.rows[0].password})
+            response.status(201).json({
+                "generatedToken":generatedToken,
+                "result":results.rows
+            })
+        }
+        // console.log(compare);
+        // response.status(200).json(results.rows)
+    })
+})
+
 app.post('/upload-picture', upload.single('file'), (req, res) => {
     //provided by cloudinary docs line 79-88
     cloudinary.uploader
@@ -58,6 +77,15 @@ app.post('/upload-picture', upload.single('file'), (req, res) => {
 
 // USER TABLE
 
+app.get('/all-artists', (request, response) => {
+    pool.query(`SELECT * FROM "user" WHERE role = 'artist'`, (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows)  
+    })
+})
+
 app.get('/all-users', (request, response) => {
     pool.query('SELECT * FROM "user"', (error, results) => {
         if (error) {
@@ -65,15 +93,6 @@ app.get('/all-users', (request, response) => {
         }
         response.status(200).json(results.rows)
         
-    })
-})
-
-app.get('/all-artists', (request, response) => {
-    pool.query(`SELECT * FROM "user" WHERE role = 'artist'`, (error, results) => {
-        if (error) {
-            throw error;
-        }
-        response.status(200).json(results.rows)  
     })
 })
 
@@ -127,38 +146,85 @@ app.delete('/delete-user/:id', (request, response) => {
     })
 })
 
-app.post('/log-in', (request, response) => {
-    const {email, password}  = request.body
-    pool.query('SELECT email, password, role, user_id FROM "user" WHERE email = $1', [email], (error, results) =>{
+// ART TABLE
+
+// app.get('/all-pending-arts', (request, response) => {
+//     pool.query("SELECT * FROM arts WHERE registration_status = 'pending'", (error, results) => {
+//         if (error) {
+//             throw error;
+//         }
+//         response.status(200).json(results.rows) 
+//     })
+// })
+
+app.get('/all-arts/:status', (request, response) => {
+
+    const status = request.params.status
+
+    pool.query('SELECT * FROM arts WHERE registration_status = $1', [status], (error, results) => {
         if (error) {
             throw error;
         }
-        const compare = bcrypt.compareSync(password, results.rows[0].password)
-        if (compare) {
-            const generatedToken = generateJwt({...request.body, password:results.rows[0].password})
-            response.status(201).json({
-                "generatedToken":generatedToken,
-                "result":results.rows
-            })
-        }
-        // console.log(compare);
-        // response.status(200).json(results.rows)
+        response.status(200).json(results.rows) 
     })
 })
 
-// ART TABLE
+app.get('/get-art/:id', (request, response) => {
+    const id = request.params.id
+    pool.query('SELECT * FROM arts WHERE art_id = $1', [id], (error, results) =>{
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows)
+    })
+})
 
 app.post('/add-art', (request, response) => {
 
-    const {art_name, price, location, description, upload_image, user_id} = request.body
+    const {category, art_name, price, location, description, upload_image, user_id} = request.body
     
-     pool.query('INSERT INTO arts (art_name, price, location, description, upload_image, user_id, registration_status, availability_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [art_name, price, location, description, upload_image, user_id, 'pending' , 'available' ], (error, results) => {
+     pool.query('INSERT INTO arts (category, art_name, price, location, description, upload_image, user_id, registration_status, availability_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [category, art_name, price, location, description, upload_image, user_id, 'pending' , 'available'], (error, results) => {
         if (error) {
             throw error;
         }
         response.status(201).send('art added wait for approval of the admin to accept')   
     })
 })
+
+app.put('/update-art/:id', (request, response) => {
+    const id = request.params.id
+    const {art_name, price, location, description, upload_image} = request.body
+
+    pool.query('UPDATE arts SET art_name = $1, price = $2, location = $3, description = $4, upload_image = $5 WHERE art_id = $6', [art_name, price, location, description, upload_image, id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send('Art updated successfully!') 
+    })
+})
+
+app.put('/update-art-reg-status/:id', (request, response) => {
+    const id = request.params.id
+    const {registration_status} = request.body
+
+    pool.query('UPDATE arts SET registration_status = $1 WHERE art_id = $2', [registration_status, id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send('Art updated successfully!') 
+    })
+})
+
+app.delete('/delete-art/:id', (request, response) => {
+    const id = request.params.id
+    
+    pool.query('DELETE FROM arts WHERE art_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send(`Art No.${id} is successfully deleted !`) 
+    })
+}) 
 
 // CATEGORY_LISTS TABLE
 

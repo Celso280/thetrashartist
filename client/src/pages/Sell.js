@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 function Sell() {
 
-  const [type, setType] = useState([])
+  // const [type, setType] = useState([])
   const [artUpload, setArtUpload] = useState({})
 
   const context = useContext(AuthContext)
@@ -17,6 +17,7 @@ function Sell() {
     e.preventDefault();
     console.log(context.user);
     axios.post("http://localhost:8000/add-art", {
+        category: artUpload.category,
         art_name: artUpload.artName,
         price: artUpload.price,
         location: artUpload.location,
@@ -32,24 +33,32 @@ function Sell() {
       });
   };
 
-  const handleChange = (data) => {
-    setType(() => {
-      if (type.includes(data)){
-        console.log(data);
-        const test = type.filter((plant) => plant !== data);
-        return test
-      }
-      return [...type, data];
-    }
-    );
-  }
+  // const handleChange = (data) => {
+  //   setType(() => {
+  //     if (type.includes(data)){
+  //       console.log(data);
+  //       const test = type.filter((plant) => plant !== data);
+  //       return test
+  //     }
+  //     return [...type, data];
+  //   }
+  //   );
+  // }
+
+  const handleCategory = (e) => {
+    let value = e.target.value
+    setArtUpload({
+      ...artUpload, category: value
+    })
+    console.log(artUpload);
+  };
 
   const handleArtName = (e) => {
     let value = e.target.value;
     setArtUpload({
       ...artUpload, artName: value
     })
-    console.log(artUpload);
+    
   };
 
   const handlePrice = (e) => {
@@ -107,22 +116,39 @@ function Sell() {
           <form className="mt-6" onSubmit={addArt}>
             <div>
               <p className="font-semibold">Select your art categories:</p>
-              <input onChange={() => handleChange('electronic')} type="checkbox" id="Electronic" name="Electronic"/>
-              <label for="Electronic"> Electronic </label><br/>
-              <input onChange={() => handleChange('fabric')} type="checkbox" id="Fabric" name="Fabric"/>
-              <label for="Fabric"> Fabric </label><br/>
-              <input onChange={() => handleChange('glass')} type="checkbox" id="Glass" name="Glass"/>
-              <label for="Glass"> Glass </label><br/>
-              <input onChange={() => handleChange('paper')} type="checkbox" id="Paper" name="Paper"/>
-              <label for="Paper"> Paper </label><br/>
-              <input onChange={() => handleChange('plastic')} type="checkbox" id="Plastic" name="Plastic" />
-              <label for="Plastic"> Plastic </label><br/>
-              <input onChange={() => handleChange('wood')} type="checkbox" id="Wood" name="Wood"/>
-              <label for="Wood"> Wood </label><br/>
-              <input onChange={() => handleChange('styrofoam')} type="checkbox" id="Styrofoam" name="Styrofoam"/>
-              <label for="Styrofoam"> Styrofoam </label><br/>
-              <input onChange={() => handleChange('others')} type="checkbox" id="Others" name="Others"/>
-              <label for="Others"> Others </label><br/><br/>
+
+                <input type="radio" name="category" id="electronic" value="Electronic"
+                  onChange={handleCategory}/>
+                <label for="electronic">Electronic</label><br/>
+
+                <input type="radio" name="category" id="fabric" value="Fabric"
+                  onChange={handleCategory}/>
+                <label for="fabric">Fabric</label><br/>
+
+                <input type="radio" name="category" id="glass" value="Glass"
+                  onChange={handleCategory}/>
+                <label for="glass">Glass</label><br/>
+
+                <input type="radio" name="category" id="paper" value="Paper"
+                  onChange={handleCategory}/>
+                <label for="paper">Paper</label><br/>
+
+                <input type="radio" name="category" id="plastic" value="Plastic"
+                  onChange={handleCategory}/>
+                <label for="plastic">Plastic</label><br/>
+
+                <input type="radio" name="category" id="wood" value="Wood"
+                  onChange={handleCategory}/>
+                <label for="wood">Wood</label><br/>
+
+                <input type="radio" name="category" id="styrofoam" value="Styrofoam"
+                  onChange={handleCategory}/>
+                <label for="styrofoam">Styrofoam</label><br/>
+
+                <input type="radio" name="category" id="others" value="Others"
+                  onChange={handleCategory}/>
+                <label for="others">Others</label><br/><br/>
+
             </div>
             <div className="mb-2">
               <label
