@@ -65,6 +65,7 @@
 //   </React.StrictMode>
 // );
 
+import { AuthContext, AuthProvider } from "./context/AuthContext";
 import React, {useContext} from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -79,15 +80,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthContext, AuthProvider } from "./context/AuthContext";
 import GetArtFromDb from "./pages/admin_section/GetArtFromDb";
 import axios from "axios";
 
 function AppRoutes() {
   const {user, setUser} = useContext(AuthContext)
-  // if (user)
   
-
   if (typeof(user) == 'undefined') {
     
     const token = localStorage.getItem('jwt_token');
@@ -96,13 +94,14 @@ function AppRoutes() {
           jwt_token:token
       })
       .then(function (response) {
-        console.log(response);
-        setUser(response)
+        setUser(response.data)
+        console.log(response, 'verify');
       })
       .catch(function (error) {
-        console.log('Not logged in');
+        console.log(error, 'front index');
       });
     }
+
 }
   return (
     <Routes>

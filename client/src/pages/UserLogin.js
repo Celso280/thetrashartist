@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 
 
+
 function UserLogin() {
 
   const context = useContext(AuthContext)
@@ -26,18 +27,9 @@ function UserLogin() {
     })
   };
 
-  const checkPassword = () => {
-    
-    if (user.password === '123456'){
-      toast.success('Login success!')
-    }else{
-      toast.error('Incorrect email or password')
-    }
-  }
-
   const loginUser = (e) => {
     e.preventDefault();
-    console.log(user.password);
+    
     axios.post("http://localhost:8000/log-in", {
         email: user.email,
         password: user.password,  
@@ -46,11 +38,11 @@ function UserLogin() {
         // in line 35 we are storing the token in localstorage
         localStorage.setItem('jwt_token',response.data.generatedToken)
         navigate("/home");
-        // toast.success(`Welcome back ${user.email}`)
+        toast.success(`Welcome back ${user.email} ^_^`)
         context.setUser(response.data.result[0])
       })
       .catch(function (error) {
-        toast.error(`Ooops, there seems to be a problem with your account !`)
+        toast.error(`Account authentication failed >.<`)
       });
   };
 
@@ -93,8 +85,7 @@ function UserLogin() {
             <div className="mt-6">
               <button 
               className="w-full px-4 py-2 tracking-wide transition-colors duration-200 transform bg-slate-200 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600 hover:text-white"
-              type="submit"
-              onClick={checkPassword}>
+              type="submit">
                 Login
               </button>
             </div>

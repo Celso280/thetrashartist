@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { AiOutlineCaretUp, AiOutlineCaretDown} from 'react-icons/ai'
 import axios from 'axios'
 import arts from './Arts'
+import Modal from '../Modal'
 
 
 function Home() {
@@ -10,6 +11,8 @@ function Home() {
    const [current, setCurrent] = useState('All')
    const [homeArray, setHomeArray] = useState([])
    const [arts, setArts] = useState([])
+   const [showModal, setShowModal] = useState(false)
+   const [selectedArt, setSelectedArt] = useState({})
 
    useEffect(() => {
       getArts()
@@ -36,7 +39,7 @@ function Home() {
       ]
    
    const categolist = categoriesArr.map((category, index) => (
-      <div className='text-sm mx-5 my-1 px-1 md:mx-1 border-2 rounded-lg border-black ring-2 ring-slate-200 hover:scale-110'>
+      <div className='text-sm mx-5 my-1 px-1 md:mx-1 shadow-md rounded-lg hover:scale-110'>
          <button className='my-2 uppercase' onClick={() => {
          filterItems(category)
          setCurrent(category)
@@ -86,18 +89,19 @@ const filterItems = (category, searchQuery) => {
       </div>
 
       <div className='w-60 ml-14'>
-         <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg overflow-hidden">
+         <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-md overflow-hidden shadow-lg">
             <div className="grid place-items-center h-full w-12 text-gray-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
             </div>
 
             <input onChange= { (e) => filterItems(current, e.target.value)}
-            className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+            className="peer h-full w-full outline-none text-md text-black pr-2 bg-transparent"
             type="text"
             id="search"
-            placeholder="Search art" /> 
+            placeholder="Search your art here"
+             /> 
          </div>
       </div>
       
@@ -129,11 +133,21 @@ const filterItems = (category, searchQuery) => {
                      <p>Category: {art.category} </p>
                      <p>Art name: {art.art_name} </p>
                      <p>Price: {art.price} </p>
-                     <p>Location: {art.location} </p>
+                     <p>Location: {art.location} </p>  
+                  </div>
+                  <div className='flex m-2 justify-end'> 
+                     <button 
+                     className='bg-sky-500 rounded-md px-1 items-end'
+                     onClick={() => {
+                        setShowModal(true)
+                        setSelectedArt(art)
+                     }}
+                     >Inquire</button> 
                   </div>
                </div>
             ))}
       </div>
+      <Modal selectedArt = {selectedArt} isVisible = {showModal} onClose={() => setShowModal(false)} />
     </div>
   )
 }

@@ -54,7 +54,7 @@ app.post('/log-in', (request, response) => {
         }
         const compare = bcrypt.compareSync(password, results.rows[0].password)
         if (compare) {
-            const generatedToken = generateJwt({...request.body, password:results.rows[0].password})
+            const generatedToken = generateJwt({...request.body, password:results.rows[0].password, role:results.rows[0].role, user_id:results.rows[0].user_id })
             response.status(201).json({
                 "generatedToken":generatedToken,
                 "result":results.rows
@@ -151,14 +151,16 @@ app.delete('/delete-user/:id', (request, response) => {
 
 // ART TABLE
 
-// app.get('/all-pending-arts', (request, response) => {
-//     pool.query("SELECT * FROM arts WHERE registration_status = 'pending'", (error, results) => {
-//         if (error) {
-//             throw error;
-//         }
-//         response.status(200).json(results.rows) 
-//     })
-// })
+app.get('/all-arts', (request, response) => {
+    pool.query('SELECT * FROM arts', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows) 
+        console.log(results);
+    })
+    
+})
 
 app.post('/auth/verifyToken', (request, response) => {
     
@@ -166,10 +168,12 @@ app.post('/auth/verifyToken', (request, response) => {
     
     try { 
         const decode = jwt.verify(jwt_token, process.env.jwt_secret);
-        console.log(decode);
+        console.log(decode, 'verify in backend');
         return response.status(200).send({
             email:decode.email,
-            password:decode.password
+            password:decode.password,
+            role:decode.role,
+            user_id:decode.user_id
         })
       } catch(err) {
         console.log(err);

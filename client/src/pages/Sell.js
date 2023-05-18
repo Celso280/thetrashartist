@@ -15,7 +15,7 @@ function Sell() {
 
   const addArt = (e) => {
     e.preventDefault();
-    console.log(context.user);
+    console.log(context.user.user_id, 'this is context user check');
     axios.post("http://localhost:8000/add-art", {
         category: artUpload.category,
         art_name: artUpload.artName,
@@ -23,7 +23,7 @@ function Sell() {
         location: artUpload.location,
         description: artUpload.description,
         upload_image: artUpload.uploadImage,
-        user_id: context.user?.result[0]?.user_id
+        user_id: context.user.user_id
       })
       .then(function (response) {
         toast.success(`Art added successfully please wait for the approval of the admin!`)

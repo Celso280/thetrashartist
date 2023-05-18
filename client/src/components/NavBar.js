@@ -32,6 +32,7 @@ function NavBar() {
                 <div className='self-center bg-slate-700 rounded-lg text-white px-2 py-1'>
                     {context.user ? <button onClick={() => {
                         context.setUser(undefined)
+                        localStorage.setItem('jwt_token',undefined)
                         navigate("/login");
                     }}>Logout</button> : <Link to='/login'><button>Login</button></Link>}
                 </div>
