@@ -12,9 +12,9 @@ function Posts(props) {
     }
 
   return (
-      <div className="p-2 w-60 shadow-md hover:scale-95 bg-white"> 
+      <div className="p-2 shadow-md hover:scale-95 bg-white mb-2"> 
         <div>
-            <img src={props.art.upload_image} alt='art'/>
+            <img className="w-80 h-60" src={props.art.upload_image} alt='art'/>
         </div>
         <div>
             <div className='p-2 text-sm'>
