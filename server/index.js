@@ -9,6 +9,7 @@ const cloudinary = require('cloudinary').v2;
 const bodyParser = require('body-parser')
 const bcrypt = require("bcrypt");
 const verifyToken = require('./middleware/auth')
+const jwt = require('jsonwebtoken')
 
 const PORT = 8000
 
@@ -43,7 +44,9 @@ app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
 })
 
+
 app.post('/log-in', (request, response) => {
+    console.log(request.body);
     const {email, password}  = request.body
     pool.query('SELECT email, password, role, user_id FROM "user" WHERE email = $1', [email], (error, results) =>{
         if (error) {
@@ -157,6 +160,23 @@ app.delete('/delete-user/:id', (request, response) => {
 //     })
 // })
 
+app.post('/auth/verifyToken', (request, response) => {
+    
+    const jwt_token = (request.body.jwt_token)
+    
+    try { 
+        const decode = jwt.verify(jwt_token, process.env.jwt_secret);
+        console.log(decode);
+        return response.status(200).send({
+            email:decode.email,
+            password:decode.password
+        })
+      } catch(err) {
+        console.log(err);
+        return response.status(401).send('fsfsf')
+      }
+})
+
 app.get('/all-arts/:status', (request, response) => {
 
     const status = request.params.status
@@ -187,7 +207,7 @@ app.post('/add-art', (request, response) => {
         if (error) {
             throw error;
         }
-        response.status(201).send('art added wait for approval of the admin to accept')   
+        response.status(201).send('Art added wait for approval from the admin')   
     })
 })
 

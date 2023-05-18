@@ -1,5 +1,7 @@
 body {
-  background-image: url(/public/hypnotize.webp); 
+  background-image: url(/public/3.jpg); 
+  /* background-size:cover; */
+  /* background-color: #F0F8FF; */
   padding: 0.5rem; 
   margin: 0; 
   box-sizing: border-box;

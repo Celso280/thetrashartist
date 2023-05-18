@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 
@@ -8,6 +8,7 @@ function NavBar() {
 
     const context = useContext(AuthContext)
     const [nav, setNav] = useState(false)
+    const navigate = useNavigate()
 
     function handleNav(){
         setNav(!nav)
@@ -20,16 +21,18 @@ function NavBar() {
         <div className='flex justify-between items-center mx-auto px-4'>
             <div className='flex h-20'>
                 <img src='MyLogo.png' alt='TTA Logo'/>
-                <h3 className='inline-block mt-6 text-2xl'><Link to='/home'>TheTrashArtist</Link></h3>
+                
             </div>
             <ul className='hidden md:flex md:space-x-2 lg:space-x-10'>
+                <li className='p-4'><Link to='/home'>HOME</Link></li>
                 <li className='p-4'><Link to='/about'>ABOUT</Link></li>
                 <li className='p-4'><Link to='/artist'>ARTISTS</Link></li>
-                {context.user?.result[0]?.role==='artist' && <li className='p-4'><Link to='/sell'>SELL</Link></li>}
-                {context.user?.result[0]?.role==='admin' && <li className='p-4'><Link to='/connect'>ADMIN</Link></li>}
+                {context.user?.role==='artist' && <li className='p-4'><Link to='/sell'>SELL</Link></li>}
+                {context.user?.role==='admin' && <li className='p-4'><Link to='/connect'>ADMIN</Link></li>}
                 <div className='self-center bg-slate-700 rounded-lg text-white px-2 py-1'>
                     {context.user ? <button onClick={() => {
                         context.setUser(undefined)
+                        navigate("/login");
                     }}>Logout</button> : <Link to='/login'><button>Login</button></Link>}
                 </div>
             </ul> 
