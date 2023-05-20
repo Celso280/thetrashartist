@@ -19,8 +19,8 @@ function NavBar() {
         {/* ? if undefined not continue line 31 */}
         
         <div className='flex justify-between items-center mx-auto px-4'>
-            <div className='flex h-20'>
-                <img src='MyLogo.png' alt='TTA Logo'/>
+            <div className='flex h-24 scale-150'>
+                <img src='colorful.png' alt='TTA Logo'/>
                 
             </div>
             <ul className='hidden md:flex md:space-x-2 lg:space-x-10'>

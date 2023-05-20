@@ -27,7 +27,7 @@ function Posts(props) {
         </div>
         <div className="flex justify-around">
           <button onClick={() => handleRegStatus('approved')} className="bg-sky-500 text-white font-bold text-sm rounded-lg p-1 my-2">ACCEPT</button>
-          <button onClick={() => handleRegStatus('rejected')} className="bg-red-500 text-white font-bold text-sm rounded-lg p-1 my-2">REJECT</button>
+          <button onClick={() => handleRegStatus('rejected')} className="bg-red-500 text-white font-bold text-sm rounded-lg p-1 my-2">DELETE</button>
         </div>
       </div>
   )

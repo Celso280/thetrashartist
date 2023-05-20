@@ -137,7 +137,7 @@ const filterItems = (category, searchQuery) => {
                   </div>
                   <div className='flex m-2 justify-end'> 
                      <button 
-                     className='bg-sky-500 rounded-md px-1 items-end'
+                     className='bg-sky-400 text-white rounded-md px-1 items-end'
                      onClick={() => {
                         setShowModal(true)
                         setSelectedArt(art)
