@@ -39,7 +39,7 @@ function Home() {
       ]
    
    const categolist = categoriesArr.map((category, index) => (
-      <div className='text-sm mx-5 my-1 px-1 md:mx-1 shadow-md rounded-lg hover:scale-110'>
+      <div className='text-sm mx-5 my-1 px-1 md:mx-1 shadow-sm rounded-lg hover:scale-110'>
          <button className='my-2 uppercase' onClick={() => {
          filterItems(category)
          setCurrent(category)
@@ -89,7 +89,7 @@ const filterItems = (category, searchQuery) => {
       </div>
 
       <div className='w-60 ml-14'>
-         <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-md overflow-hidden shadow-lg">
+         <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-md overflow-hidden shadow-sm">
             <div className="grid place-items-center h-full w-12 text-gray-300">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor">
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
