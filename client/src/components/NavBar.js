@@ -24,12 +24,13 @@ function NavBar() {
                 
             </div>
             <ul className='hidden md:flex md:space-x-2 lg:space-x-10'>
-                <li className='p-4 text-2xl'><Link to='/cart'><AiOutlineShoppingCart/ ></Link></li>
+                
                 <li className='p-4'><Link to='/home'>HOME</Link></li>
                 <li className='p-4'><Link to='/about'>ABOUT</Link></li>
                 <li className='p-4'><Link to='/artist'>ARTISTS</Link></li>
                 {context.user?.role==='artist' && <li className='p-4'><Link to='/sell'>SELL</Link></li>}
                 {context.user?.role==='admin' && <li className='p-4'><Link to='/connect'>ADMIN</Link></li>}
+                <li className='p-4 text-2xl'><Link to='/cart'><AiOutlineShoppingCart/ ></Link></li>
                 <div className='self-center bg-slate-700 rounded-lg text-white px-2 py-1'>
                     {context.user ? <button onClick={() => {
                         context.setUser(undefined)

@@ -309,5 +309,38 @@ app.delete('/delete-category/:id', (request, response) => {
     })
 })
 
-// CATEGORY_TYPES TABLE
+// ADD TO CART
+
+app.post('/add-cart-item', (request, response) => {
+
+    const {user_id, art_id, quantity, price, created_at, edited_at} = request.body
+
+     pool.query('INSERT INTO cart (user_id, art_id, quantity, price) VALUES ($1, $2, $3, $4 ) RETURNING cart_id', [user_id, art_id, quantity, price], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(201).json(`adding to cart ${results}`)   
+    })
+})
+
+app.get('/all-cart-items', (request, response) => {
+    pool.query('SELECT * FROM cart', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows)
+        
+    })
+})
+
+app.delete('/delete-cart-item/:id', (request, response) => {
+    const id = request.params.id
+    
+    pool.query('DELETE FROM cart WHERE cart_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send(`Item No.${id} is successfully deleted !`) 
+    })
+})
 
