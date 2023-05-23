@@ -15,6 +15,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GetArtFromDb from "./pages/admin_section/GetArtFromDb";
 import axios from "axios";
+import Cart from "./pages/Cart";
 
 function AppRoutes() {
   const {user, setUser} = useContext(AuthContext)
@@ -41,6 +42,7 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="connect" element={<GetArtFromDb />} />
+      <Route path="cart" element={<Cart />} />
       <Route path="sell" element={<Sell />} />
       <Route path="home" element={<Home />} />
       <Route path="login" element={<UserLogin />} />

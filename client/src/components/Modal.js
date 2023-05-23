@@ -9,7 +9,6 @@ const getSeller = () => {
   
   axios.get(`http://localhost:8000/get-user/${selectedArt.user_id}`)
     .then(function (response) {
-      console.log(response.data[0], 'seller info');
       setSellerInfo(response.data[0])
     })
     .catch(function (error) {
@@ -33,6 +32,7 @@ if (!isVisible) return null;
             onClick={() => onClose()}
             >X</button>    
             <div className='p-2 rounded bg-white'>
+                  <img src={selectedArt.upload_image} alt='' />
                   <p>Artist name: {`${sellerInfo.first_name} ${sellerInfo.last_name}`}</p>
                   <p>Email: {sellerInfo.email}</p>
                   <p>Contact: {sellerInfo.contact}</p>

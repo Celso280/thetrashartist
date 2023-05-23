@@ -54,6 +54,7 @@ function Home() {
    )
 }
 
+
 const filterItems = (category, searchQuery) => {
    const filteredArts = arts.filter((art) => {
       
@@ -81,6 +82,8 @@ const filterItems = (category, searchQuery) => {
    })
    setHomeArray(filteredArts)
  }
+
+ console.log(selectedArt, 'logging selectedArt');
 
   return (
     <div>
@@ -147,7 +150,11 @@ const filterItems = (category, searchQuery) => {
                </div>
             ))}
       </div>
-      <Modal selectedArt = {selectedArt} isVisible = {showModal} onClose={() => setShowModal(false)} />
+      <Modal 
+         selectedArt = {selectedArt} 
+         isVisible = {showModal} 
+         onClose={() => setShowModal(false)} 
+      />
     </div>
   )
 }

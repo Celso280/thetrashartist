@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react'
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai";
 
 
 function NavBar() {
@@ -24,6 +24,7 @@ function NavBar() {
                 
             </div>
             <ul className='hidden md:flex md:space-x-2 lg:space-x-10'>
+                <li className='p-4 text-2xl'><Link to='/cart'><AiOutlineShoppingCart/ ></Link></li>
                 <li className='p-4'><Link to='/home'>HOME</Link></li>
                 <li className='p-4'><Link to='/about'>ABOUT</Link></li>
                 <li className='p-4'><Link to='/artist'>ARTISTS</Link></li>
