@@ -168,7 +168,6 @@ app.post('/auth/verifyToken', (request, response) => {
     
     try { 
         const decode = jwt.verify(jwt_token, process.env.jwt_secret);
-        console.log(decode, 'verify in backend');
         return response.status(200).send({
             email:decode.email,
             password:decode.password,
@@ -313,9 +312,9 @@ app.delete('/delete-category/:id', (request, response) => {
 
 app.post('/add-cart-item', (request, response) => {
 
-    const {user_id, art_id, quantity, price, created_at, edited_at} = request.body
+    const {user_id, art_id, image_upload, art_name,  quantity, price} = request.body
 
-     pool.query('INSERT INTO cart (user_id, art_id, quantity, price) VALUES ($1, $2, $3, $4 ) RETURNING cart_id', [user_id, art_id, quantity, price], (error, results) => {
+     pool.query('INSERT INTO cart (user_id, art_id, image_upload, art_name, quantity, price) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING cart_id', [user_id, art_id, image_upload, art_name, quantity, price], (error, results) => {
         if (error) {
             throw error;
         }
@@ -323,8 +322,10 @@ app.post('/add-cart-item', (request, response) => {
     })
 })
 
-app.get('/all-cart-items', (request, response) => {
-    pool.query('SELECT * FROM cart', (error, results) => {
+app.get('/all-cart-items/:id', (request, response) => {
+    const id = request.params.id
+
+    pool.query('SELECT * FROM cart WHERE user_id = $1', [id], (error, results) => {
         if (error) {
             throw error;
         }

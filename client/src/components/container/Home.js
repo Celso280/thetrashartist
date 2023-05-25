@@ -54,7 +54,6 @@ function Home() {
    )
 }
 
-
 const filterItems = (category, searchQuery) => {
    const filteredArts = arts.filter((art) => {
       
@@ -82,6 +81,8 @@ const filterItems = (category, searchQuery) => {
    })
    setHomeArray(filteredArts)
  }
+
+//  console.log(selectedArt);
 
   return (
     <div>

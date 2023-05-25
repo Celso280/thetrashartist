@@ -23,6 +23,8 @@ const addToCart = () => {
   axios.post("http://localhost:8000/add-cart-item", {
         user_id: context.user.user_id,
         art_id: selectedArt.art_id,
+        image_upload: selectedArt.upload_image,
+        art_name: selectedArt.art_name,
         quantity: 1,
         price: selectedArt.price
       })

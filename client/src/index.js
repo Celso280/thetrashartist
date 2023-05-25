@@ -29,10 +29,10 @@ function AppRoutes() {
       })
       .then(function (response) {
         setUser(response.data)
-        console.log(response, 'verify');
+        
       })
       .catch(function (error) {
-        console.log(error, 'front index');
+        
       });
     }
 
