@@ -82,8 +82,6 @@ const filterItems = (category, searchQuery) => {
    setHomeArray(filteredArts)
  }
 
-//  console.log(selectedArt);
-
   return (
     <div>
       <div className='hidden lg:flex font-semibold mt-5'>

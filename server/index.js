@@ -48,13 +48,13 @@ app.listen(PORT, () => {
 app.post('/log-in', (request, response) => {
     console.log(request.body);
     const {email, password}  = request.body
-    pool.query('SELECT email, password, role, user_id FROM "user" WHERE email = $1', [email], (error, results) =>{
+    pool.query('SELECT first_name, last_name, email, password, role, user_id, location FROM "user" WHERE email = $1', [email], (error, results) =>{
         if (error) {
             throw error;
         }
         const compare = bcrypt.compareSync(password, results.rows[0].password)
         if (compare) {
-            const generatedToken = generateJwt({...request.body, password:results.rows[0].password, role:results.rows[0].role, user_id:results.rows[0].user_id })
+            const generatedToken = generateJwt({...request.body, first_name:results.rows[0].first_name, last_name:results.rows[0].last_name, location:results.rows[0].location, password:results.rows[0].password, role:results.rows[0].role, user_id:results.rows[0].user_id })
             response.status(201).json({
                 "generatedToken":generatedToken,
                 "result":results.rows
@@ -169,6 +169,9 @@ app.post('/auth/verifyToken', (request, response) => {
     try { 
         const decode = jwt.verify(jwt_token, process.env.jwt_secret);
         return response.status(200).send({
+            first_name:decode.first_name,
+            last_name:decode.last_name,
+            location:decode.location,
             email:decode.email,
             password:decode.password,
             role:decode.role,
@@ -342,6 +345,31 @@ app.delete('/delete-cart-item/:id', (request, response) => {
             throw error;    
         }
         response.status(200).send(`Item No.${id} is successfully deleted !`) 
+    })
+})
+
+// ORDER TABLE
+
+app.post('/add-order', (request, response) => {
+
+    const {user_id, art_id, quantity} = request.body
+
+     pool.query('INSERT INTO orders (user_id, art_id, quantity) VALUES ($1, $2, $3 ) RETURNING order_id, art_id', [user_id, art_id, quantity], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(201).json(results.rows)   
+    })
+})
+
+app.get('/get-orders/:id', (request, response) => {
+    const id = request.params.id
+
+    pool.query('SELECT * FROM orders WHERE order_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows) 
     })
 })
 

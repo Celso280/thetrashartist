@@ -3,10 +3,12 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
+import Checkout from '../components/Checkout';
 
 function Cart() {
   const [items, setItems] = useState([]);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
+  const [showModal, setShowModal] = useState(false);
   const context = useContext(AuthContext);
   
   useEffect(() => {
@@ -62,7 +64,7 @@ function Cart() {
               <td></td>
               <td></td>
               <td className='bg-[#2f2f2f] text-white'>Total</td>
-              <td className='bg-[#2f2f2f] text-white'>{total}</td>
+              <td className='bg-[#2f2f2f] text-white'>{total}</td>  
             </tr>
           </tbody>
           <tbody>
@@ -70,11 +72,12 @@ function Cart() {
               <td></td>
               <td></td>
               <td></td>
-              <td><button>Checkout</button></td>
+              <td><button onClick={() => setShowModal(true)}>Checkout</button></td>
             </tr>
           </tbody>
         </table>
       </div>
+      <Checkout isVisible={showModal} onClose={() => setShowModal(false)} items={items} total={total}/>
     </div>
   );
 }
