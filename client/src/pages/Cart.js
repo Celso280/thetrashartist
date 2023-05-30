@@ -41,7 +41,7 @@ function Cart() {
       <NavBar/>
       <div className='text-center'>
         <table className='m-auto mt-10'>
-          <thead className='bg-[#2f2f2f] text-white'>
+          <thead className='bg-sky-400 text-white'>
             <tr>
               <th className='px-10 py-1'>Image</th>
               <th className='px-10 py-1'>Name</th>
@@ -63,8 +63,8 @@ function Cart() {
             <tr>
               <td></td>
               <td></td>
-              <td className='bg-[#2f2f2f] text-white'>Total</td>
-              <td className='bg-[#2f2f2f] text-white'>{total}</td>  
+              <td className='bg-sky-400 text-white'>Total</td>
+              <td className='bg-sky-400 text-white'>{total}</td>  
             </tr>
           </tbody>
           <tbody>

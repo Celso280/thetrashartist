@@ -57,7 +57,7 @@ if (!isVisible) return null;
                   <p>Email: {sellerInfo.email}</p>
                   <p>Contact: {sellerInfo.contact}</p>
                   <button 
-                  className='bg-[#FFD700] w-full rounded-md'
+                  className='bg-sky-400 w-full rounded text-white'
                   onClick={addToCart}
                   >Add To Cart
                   </button>
