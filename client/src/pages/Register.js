@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import axios from "axios";
 import FormData from 'form-data';
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 function BuyerReg() {
 
@@ -10,6 +11,7 @@ function BuyerReg() {
   const [user, setUser] = useState({})
   const [isUploading, setIsUploading] = useState(false)
   const [isSame, setIsSame] = useState(true)
+  const navigate = useNavigate()
 
   const handleFirstName = (e) => {
     let value = e.target.value;
@@ -112,7 +114,8 @@ function BuyerReg() {
       .then(function (response) {
         localStorage.setItem('jwt_token',response.data.token)
         localStorage.setItem('id',response.data.id)
-        toast.success(`Registered successfully!`)
+        navigate('/login')
+        toast.success('Registed successfuly')
       })
       .catch(function (error) {
         console.log(error);

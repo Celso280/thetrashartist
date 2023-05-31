@@ -22,7 +22,6 @@ function Cart() {
   };
 
   const getTotal = (arr) => {
-    console.log('logging arr and items', arr, items);
     const total = arr.reduce((accumulator, object) => {
       return accumulator + object.price
     }, 0)
@@ -55,7 +54,7 @@ function Cart() {
                 <td><img className='w-40 m-auto' src={item.image_upload} alt='' /></td>
                 <td>{item.art_name}</td>
                 <td>{item.quantity}</td>
-                <td>{item.price}<button className='w-5 ml-2 rounded-lg bg-rose-600 text-white' onClick={() => getUser(item.cart_id)}>X</button></td>
+                <td>{item.price}<button className='w-5 ml-2 rounded bg-rose-600 text-white' onClick={() => getUser(item.cart_id)}>X</button></td>
               </tr>
             ))}
           </tbody>

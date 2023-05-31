@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import axios from "axios";
 import FormData from 'form-data';
@@ -10,7 +11,7 @@ function Sell() {
 
   // const [type, setType] = useState([])
   const [artUpload, setArtUpload] = useState({})
-
+  const navigate = useNavigate()
   const context = useContext(AuthContext)
 
   const addArt = (e) => {
@@ -26,6 +27,7 @@ function Sell() {
         user_id: context.user.user_id
       })
       .then(function (response) {
+        navigate('/home')
         toast.success(`Art added successfully please wait for the approval of the admin!`)
       })
       .catch(function (error) {

@@ -362,14 +362,24 @@ app.post('/add-order', (request, response) => {
     })
 })
 
-app.get('/get-orders/:id', (request, response) => {
-    const id = request.params.id
+app.get('/get-orders', (request, response) => {
 
-    pool.query('SELECT * FROM orders WHERE order_id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM arts INNER JOIN orders ON arts.art_id = orders.art_id INNER JOIN "user" ON orders.user_id = "user".user_id', (error, results) => {
         if (error) {
             throw error;
         }
         response.status(200).json(results.rows) 
+    })
+})
+
+app.delete('/delete-order/:id', (request, response) => {
+    const id = request.params.id
+    
+    pool.query('DELETE FROM orders WHERE order_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send(`Order No.${id} is successfully deleted !`) 
     })
 })
 

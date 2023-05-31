@@ -38,11 +38,11 @@ function UserLogin() {
         // in line 35 we are storing the token in localstorage
         localStorage.setItem('jwt_token',response.data.generatedToken)
         navigate("/home");
-        toast.success(`Welcome back ${user.email} ^_^`)
+        toast.success(`Welcome back ${user.email}`)
         context.setUser(response.data.result[0])
       })
       .catch(function (error) {
-        toast.error(`Account authentication failed >.<`)
+        toast.error(`Account authentication failed`)
       });
   };
 

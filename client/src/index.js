@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import GetArtFromDb from "./pages/admin_section/GetArtFromDb";
 import axios from "axios";
 import Cart from "./pages/Cart";
+import Order from "./pages/Order";
 
 function AppRoutes() {
   const {user, setUser} = useContext(AuthContext)
@@ -48,6 +49,7 @@ function AppRoutes() {
       <Route path="login" element={<UserLogin />} />
       <Route path="artist" element={<ArtistList />} />
       <Route path="register" element={<Register />} />
+      <Route path="order" element={<Order />} />
     </Routes>
   );
 }
