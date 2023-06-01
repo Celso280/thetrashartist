@@ -25,7 +25,7 @@ function Order() {
   return (
     <div>
         <NavBar/>
-        <table className='m-auto mt-20 text-center'>
+        <table className='m-auto mt-20 text-center border-2 border-black p-2'>
             <tr className='bg-sky-400'>
                 <th className='py-2 px-5'>ORDER ID</th>
                 <th className='py-2 px-5'>NAME</th>

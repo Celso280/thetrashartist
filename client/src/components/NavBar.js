@@ -31,7 +31,8 @@ function NavBar() {
                 {context.user?.role==='artist' && <li className='p-4'><Link to='/sell'>SELL</Link></li>}
                 {context.user?.role==='admin' && <li className='p-4'><Link to='/connect'>APPLICATION</Link></li>}
                 {context.user?.role==='admin' && <li className='p-4'><Link to='/order'>ORDERS</Link></li>}
-                {context.user?.role==='buyer' && <li className='p-4 text-2xl'><Link to='/cart'><AiOutlineShoppingCart/ ></Link></li>}
+                <li className='p-4'><Link to='/account'>ACCOUNT</Link></li>
+                {context.user?.role==='buyer' && <li className='p-4 text-2xl'><Link to='/cart'><AiOutlineShoppingCart/ ></Link></li>} 
                 <div className='self-center bg-slate-700 rounded-lg text-white px-2 py-1'>
                     {context.user ? <button onClick={() => {
                         context.setUser(undefined)
@@ -53,6 +54,7 @@ function NavBar() {
                     {context.user?.role==='artist' && <li className='p-4'><Link to='/sell'>Sell</Link></li>}
                     {context.user?.role==='admin' && <li className='p-4'><Link to='/connect'>APPLICATION</Link></li>}
                     {context.user?.role==='admin' && <li className='p-4'><Link to='/order'>ORDERS</Link></li>}
+                    <li className='p-4'><Link to='/account'>ACCOUNT</Link></li>
                     {context.user?.role==='buyer' && <li className='p-4 text-2xl'><Link to='/cart'><AiOutlineShoppingCart/ ></Link></li>}
                     <div className='px-2 py-1 w-fit hover:scale-110 bg-slate-700 rounded-lg text-white'>
                         {context.user ? <button onClick={() => {

@@ -39,42 +39,46 @@ function Cart() {
     <div>
       <NavBar/>
       <div className='text-center'>
-        <table className='m-auto mt-10'>
-          <thead className='bg-sky-400 text-white'>
-            <tr>
-              <th className='px-10 py-1'>Image</th>
-              <th className='px-10 py-1'>Name</th>
-              <th className='px-10 py-1'>Quantity</th>
-              <th className='px-10 py-1'>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item) => (
-              <tr key={item.id}>
-                <td><img className='w-40 m-auto' src={item.image_upload} alt='' /></td>
-                <td>{item.art_name}</td>
-                <td>{item.quantity}</td>
-                <td>{item.price}<button className='w-5 ml-2 rounded bg-rose-600 text-white' onClick={() => getUser(item.cart_id)}>X</button></td>
+        <table className='border-2 border-black m-auto mt-10 '>
+          <div className='p-1'>
+            <thead className='bg-sky-400 text-white'>
+              <tr>
+                <th className='px-10 py-1'>Image</th>
+                <th className='px-10 py-1'>Name</th>
+                <th className='px-10 py-1'>Quantity</th>
+                <th className='px-10 py-1'>Price</th>
               </tr>
-            ))}
-          </tbody>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td className='bg-sky-400 text-white'>Total</td>
-              <td className='bg-sky-400 text-white'>{total}</td>  
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><button onClick={() => setShowModal(true)}>Checkout</button></td>
-            </tr>
-          </tbody>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.id}>
+                  <td><img className='w-40 m-auto' src={item.image_upload} alt='' /></td>
+                  <td>{item.art_name}</td>
+                  <td>{item.quantity}</td>
+                  <td>{item.price}<button className='w-5 ml-2 rounded bg-rose-600 text-white' onClick={() => getUser(item.cart_id)}>X</button></td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td className='bg-sky-400 text-white'>Total</td>
+                <td className='bg-sky-400 text-white'>{total}</td>  
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button onClick={() => setShowModal(true)}>Checkout</button></td>
+              </tr>
+            </tbody>
+            </div>
         </table>
+        
+        
       </div>
       <Checkout isVisible={showModal} onClose={() => setShowModal(false)} items={items} total={total}/>
     </div>

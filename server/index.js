@@ -128,14 +128,15 @@ app.post('/add-user', (request, response) => {
 app.put('/update-user/:id', (request, response) => {
     const id = request.params.id
     const {first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at} = request.body
+    const encryptedPassword = bcrypt.hashSync(password, 10)
 
-    pool.query('UPDATE "user" SET first_name = $1, last_name = $2, profile_picture = $3, bio = $4, email = $5, password = $6, location = $7, contact = $8, role = $9, created_at = $10, edited_at = $11 WHERE user_id = $12', [first_name, last_name, profile_picture, bio, email, password, location, contact, role, created_at, edited_at, id], (error, results) => {
+    pool.query('UPDATE "user" SET first_name = $1, last_name = $2, profile_picture = $3, bio = $4, email = $5, password = $6, location = $7, contact = $8, role = $9, created_at = $10, edited_at = $11 WHERE user_id = $12 RETURNING user_id', [first_name, last_name, profile_picture, bio, email, encryptedPassword, location, contact, role, created_at, edited_at, id], (error, results) => {
         if (error) {
             throw error;    
         }
-        response.status(200).send('User updated successfully!') 
+        const generatedToken = generateJwt({...request.body, password:encryptedPassword})
+        response.status(201).json({"token":generatedToken,"id":results.rows[0].user_id}) 
     })
-
 })
 
 app.delete('/delete-user/:id', (request, response) => {
