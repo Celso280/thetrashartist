@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
 import { AiOutlineCaretUp, AiOutlineCaretDown} from 'react-icons/ai'
 import axios from 'axios'
 import arts from './Arts'
@@ -13,6 +14,7 @@ function Home() {
    const [arts, setArts] = useState([])
    const [showModal, setShowModal] = useState(false)
    const [selectedArt, setSelectedArt] = useState({})
+   const context = useContext(AuthContext)
 
    useEffect(() => {
       getArts()
@@ -135,14 +137,15 @@ const filterItems = (category, searchQuery) => {
                      <p>Price: {art.price} </p>
                      <p>Location: {art.location} </p>  
                   </div>
-                  <div className='flex m-2 justify-end'> 
+                  <div className='flex m-2 justify-end'>
+                  {context.user?.role==='buyer' &&
                      <button 
                      className='bg-sky-400 text-white rounded-md px-1 items-end'
                      onClick={() => {
                         setShowModal(true)
                         setSelectedArt(art)
                      }}
-                     >Inquire</button> 
+                     >Inquire</button>}
                   </div>
                </div>
             ))}

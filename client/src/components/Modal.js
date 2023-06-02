@@ -1,5 +1,6 @@
 import { AuthContext } from "../context/AuthContext";
 import React , {useEffect, useState, useContext} from 'react'
+import { toast } from 'react-toastify';
 import axios from "axios";
 
 function Modal({ isVisible, onClose, selectedArt }) {
@@ -29,7 +30,7 @@ const addToCart = () => {
         price: selectedArt.price
       })
       .then(function (response) {
-        
+      toast.success('Added to cart successfully')
       })
       .catch(function (error) {
         

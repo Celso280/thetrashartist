@@ -9,14 +9,13 @@ import { toast } from 'react-toastify';
 
 function Sell() {
 
-  // const [type, setType] = useState([])
   const [artUpload, setArtUpload] = useState({})
   const navigate = useNavigate()
   const context = useContext(AuthContext)
 
   const addArt = (e) => {
     e.preventDefault();
-    console.log(context.user.user_id, 'this is context user check');
+    
     axios.post("http://localhost:8000/add-art", {
         category: artUpload.category,
         art_name: artUpload.artName,
@@ -35,24 +34,13 @@ function Sell() {
       });
   };
 
-  // const handleChange = (data) => {
-  //   setType(() => {
-  //     if (type.includes(data)){
-  //       console.log(data);
-  //       const test = type.filter((plant) => plant !== data);
-  //       return test
-  //     }
-  //     return [...type, data];
-  //   }
-  //   );
-  // }
+  console.log('this is the content of artUpload state', artUpload);
 
   const handleCategory = (e) => {
     let value = e.target.value
     setArtUpload({
       ...artUpload, category: value
     })
-    console.log(artUpload);
   };
 
   const handleArtName = (e) => {
@@ -68,7 +56,6 @@ function Sell() {
     setArtUpload({
       ...artUpload, price: value
     })
-    console.log(artUpload);
   };
 
   const handleLocation = (e) => {
@@ -76,7 +63,6 @@ function Sell() {
     setArtUpload({
       ...artUpload, location: value
     })
-    console.log(artUpload);
   };
 
   const handleDescription = (e) => {
@@ -84,7 +70,6 @@ function Sell() {
     setArtUpload({
       ...artUpload, description: value
     })
-    console.log(artUpload);
   };
 
   const handleImage = (e) => {
@@ -100,7 +85,6 @@ function Sell() {
         },
       })
       .then(res => {
-        console.log(`this is image upload ${res.data}`);
         setArtUpload({
           ...artUpload, uploadImage: res.data.url
         })       
@@ -205,6 +189,7 @@ function Sell() {
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 onChange={handleDescription}
+                // value={artUpload.description}
               />
             </div>
 
@@ -212,7 +197,9 @@ function Sell() {
               
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files">Upload image</label>
               <input class="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" multiple 
-              onChange={handleImage} />
+              onChange={handleImage}
+              // value={artUpload.uploadImage} 
+              />
               
             </div>
             

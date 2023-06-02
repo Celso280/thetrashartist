@@ -210,7 +210,7 @@ app.post('/add-art', (request, response) => {
 
     const {category, art_name, price, location, description, upload_image, user_id} = request.body
     
-     pool.query('INSERT INTO arts (category, art_name, price, location, description, upload_image, user_id, registration_status, availability_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [category, art_name, price, location, description, upload_image, user_id, 'pending' , 'available'], (error, results) => {
+     pool.query('INSERT INTO arts (category, art_name, price, location, description, upload_image, user_id, registration_status, availability_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [category, art_name, price, location, description, upload_image, user_id, 'pending' , 'available'], (error, results) => {
         if (error) {
             throw error;
         }
