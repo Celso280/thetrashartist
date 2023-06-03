@@ -30,7 +30,6 @@ function Account() {
             <div>
               <p>Full Name: {`${acc.first_name} ${acc.last_name}`}</p>
               <p>Email: {acc.email}</p>
-              <p>Password: {acc.password}</p>
               <p>Location: {acc.location}</p>
               <p>Contact: {acc.contact}</p>
               <p>Bio: {acc.bio}</p>

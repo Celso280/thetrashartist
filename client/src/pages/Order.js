@@ -30,6 +30,8 @@ function Order() {
                 <th className='py-2 px-5'>ORDER ID</th>
                 <th className='py-2 px-5'>NAME</th>
                 <th className='py-2 px-5'>ADDRESS</th>
+                <th className='py-2 px-5'>EMAIL</th>
+                <th className='py-2 px-5'>CONTACT</th>
                 <th className='py-2 px-5'>ART NAME</th>
                 <th className='py-2 px-5'>PRICE</th>
                 <th className='py-2 px-5'>QUANTITY</th>
@@ -39,6 +41,8 @@ function Order() {
                     <td>{order.order_id}</td>
                     <td>{`${order.first_name} ${order.last_name}`}</td>
                     <td>{order.location}</td>
+                    <td>{order.email}</td>
+                    <td>{order.contact}</td>
                     <td>{order.art_name}</td>
                     <td>{order.price}</td>
                     <td>{order.quantity}<button className='w-5 ml-2 rounded bg-rose-500' onClick={() => deleteOrder(order.order_id)}>X</button></td>
