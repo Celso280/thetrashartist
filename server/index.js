@@ -353,9 +353,9 @@ app.delete('/delete-cart-item/:id', (request, response) => {
 
 app.post('/add-order', (request, response) => {
 
-    const {user_id, art_id, quantity} = request.body
+    const {user_id, art_id, quantity, status} = request.body
 
-     pool.query('INSERT INTO orders (user_id, art_id, quantity) VALUES ($1, $2, $3 ) RETURNING order_id, art_id', [user_id, art_id, quantity], (error, results) => {
+     pool.query('INSERT INTO orders (user_id, art_id, quantity, status) VALUES ($1, $2, $3, $4 ) RETURNING * ', [user_id, art_id, quantity, status], (error, results) => {
         if (error) {
             throw error;
         }
@@ -363,9 +363,11 @@ app.post('/add-order', (request, response) => {
     })
 })
 
-app.get('/get-orders', (request, response) => {
+app.get('/get-orders/:status', (request, response) => {
 
-    pool.query('SELECT * FROM arts INNER JOIN orders ON arts.art_id = orders.art_id INNER JOIN "user" ON orders.user_id = "user".user_id', (error, results) => {
+    const status = request.params.status
+
+    pool.query('SELECT * FROM arts INNER JOIN orders ON arts.art_id = orders.art_id INNER JOIN "user" ON orders.user_id = "user".user_id WHERE status = $1', [status], (error, results) => {
         if (error) {
             throw error;
         }
@@ -381,6 +383,30 @@ app.delete('/delete-order/:id', (request, response) => {
             throw error;    
         }
         response.status(200).send(`Order No.${id} is successfully deleted !`) 
+    })
+})
+
+// app.put('/update-art-reg-status/:id', (request, response) => {
+//     const id = request.params.id
+//     const {registration_status} = request.body
+
+//     pool.query('UPDATE arts SET registration_status = $1 WHERE art_id = $2', [registration_status, id], (error, results) => {
+//         if (error) {
+//             throw error;    
+//         }
+//         response.status(200).send('Art updated successfully!') 
+//     })
+// })
+
+app.put('/update-order-status/:id', (request, response) => {
+    const id = request.params.id
+    const {status} = request.body
+
+    pool.query('UPDATE orders SET status = $1 WHERE order_id = $2', [status, id], (error, results) => {
+        if (error) {
+            throw error;    
+        }
+        response.status(200).send('Order status updated successfully!') 
     })
 })
 

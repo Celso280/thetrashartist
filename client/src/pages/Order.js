@@ -12,15 +12,18 @@ function Order() {
       }, [])
 
     const getOrders = async() => {
-        const response = await axios.get('/get-orders')
+        const response = await axios.get('/get-orders/Processing')
         setOrders(response.data)
       }
       
-    const deleteOrder = async (id) => {
-    await axios.delete(`http://localhost:8000/delete-order/${id}`)
-    toast.success(`Deleted successfully!`)
+    const handleOrderStatus = async (status, id) => {
+      await axios.put(`/update-order-status/${id}`, {
+      status:status
+    })
     getOrders()
-    } 
+    toast.success(`Order status changed successfully!`)
+  }
+
 
   return (
     <div>
@@ -35,6 +38,7 @@ function Order() {
                 <th className='py-2 px-5'>ART NAME</th>
                 <th className='py-2 px-5'>PRICE</th>
                 <th className='py-2 px-5'>QUANTITY</th>
+                <th className='py-2 px-5'>TRANSACTION</th>
             </tr>
                 {orders.map((order) => (
                 <tr>
@@ -45,7 +49,15 @@ function Order() {
                     <td>{order.contact}</td>
                     <td>{order.art_name}</td>
                     <td>{order.price}</td>
-                    <td>{order.quantity}<button className='w-5 ml-2 rounded bg-rose-500' onClick={() => deleteOrder(order.order_id)}>X</button></td>
+                    <td>{order.quantity}</td>
+                    {/* <button className='w-5 ml-2 rounded bg-rose-500' onClick={() => deleteOrder(order.order_id)}>X</button> */}
+                    <td>
+                      <button 
+                      className='rounded bg-sky-500 text-white p-1'
+                      onClick={() => handleOrderStatus('Successed', order.order_id)}>Successed</button>
+                      <button 
+                      className='rounded bg-rose-500 text-white p-1'
+                      onClick={() => handleOrderStatus('Cancelled', order.order_id)}>Cancelled</button></td>
                     </tr>
                 ))}     
         </table>

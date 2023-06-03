@@ -14,7 +14,8 @@ function Checkout({isVisible, onClose, items, total}) {
           return axios.post("http://localhost:8000/add-order", {
             user_id: context.user.user_id,
             art_id: item.art_id,
-            quantity: 1
+            quantity: 1,
+            status: 'Processing'
           });
         });
       
