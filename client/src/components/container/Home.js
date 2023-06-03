@@ -2,8 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import { AiOutlineCaretUp, AiOutlineCaretDown} from 'react-icons/ai'
 import axios from 'axios'
-import arts from './Arts'
 import Modal from '../Modal'
+import { VscTag } from "react-icons/vsc";
+import { SlTrophy, SlLocationPin } from "react-icons/sl";
+import { FiAlertCircle } from "react-icons/fi";
 
 
 function Home() {
@@ -132,20 +134,22 @@ const filterItems = (category, searchQuery) => {
                      <img className='w-80 h-60 p-2' src={art.upload_image} alt='' />
                   </div>
                   <div className='p-2 text-sm ml-4'>
-                     <p>Category: {art.category} </p>
-                     <p>Art name: {art.art_name} </p>
-                     <p>Price: {art.price} </p>
-                     <p>Location: {art.location} </p>  
+                     <div className='flex justify-between'>
+                        <p className='text-lg mb-1'>{art.art_name}</p>
+                        {context.user?.role==='buyer' &&
+                           <button 
+                           className='text-2xl rounded-lg px-1 items-end'
+                           onClick={() => {
+                              setShowModal(true)
+                              setSelectedArt(art)
+                           }}
+                           ><FiAlertCircle style={{ color: 'green' }}/></button>}
+                     </div>
+                     <p className='flex items-center mb-1'><VscTag className='mr-1' style={{ color: 'blue' }}/>{art.price}</p>
+                     <p className='flex items-center mb-1'><SlLocationPin className='mr-1' style={{ color: 'black' }}/>{art.location} </p> 
+                     <p className='flex items-center'><SlTrophy className='mr-1' style={{ color: 'gold' }}/>{art.category} </p> 
                   </div>
                   <div className='flex m-2 justify-end'>
-                  {context.user?.role==='buyer' &&
-                     <button 
-                     className='bg-sky-400 text-white rounded-md px-1 items-end'
-                     onClick={() => {
-                        setShowModal(true)
-                        setSelectedArt(art)
-                     }}
-                     >Inquire</button>}
                   </div>
                </div>
             ))}

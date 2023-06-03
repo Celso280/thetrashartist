@@ -1,4 +1,7 @@
 import React from "react";
+import { BsCartCheck } from "react-icons/bs";
+import { SlLocationPin } from "react-icons/sl";
+import { FcAbout } from "react-icons/fc";
 
 
 function ArtistProfile(props) {
@@ -9,10 +12,10 @@ function ArtistProfile(props) {
       </div>
       <div>
           <div className='p-2 text-sm'>
-              <p>Name: {`${props.xxxx.first_name} ${props.xxxx.last_name}`}</p>
-              <p>Art Sold: 100</p>
-              <p>Location: {`${props.xxxx.location}`}</p>
-              <p>Background: {`${props.xxxx.bio}`}</p>
+              <p>{`${props.xxxx.first_name} ${props.xxxx.last_name}`}</p>
+              <p className="flex items-center"><BsCartCheck className="mr-1" style={{ color: 'blue' }}/> 100</p>
+              <p className="flex items-center"><SlLocationPin className='mr-1' style={{ color: 'black' }}/>{`${props.xxxx.location}`}</p>
+              <p className="flex items-center"><FcAbout className="mr-1"/> {`${props.xxxx.bio}`}</p>
           </div>  
       </div>
     </div>

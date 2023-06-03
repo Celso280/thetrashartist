@@ -2,6 +2,7 @@ import { AuthContext } from "../context/AuthContext";
 import React , {useEffect, useState, useContext} from 'react'
 import { toast } from 'react-toastify';
 import axios from "axios";
+import { FcIphone, FcGoogle, FcBusinessman } from "react-icons/fc";
 
 function Modal({ isVisible, onClose, selectedArt }) {
 
@@ -54,9 +55,9 @@ if (!isVisible) return null;
             >X</button>    
             <div className='p-2 rounded bg-white'>
                   <img src={selectedArt.upload_image} alt=''/>
-                  <p>Artist name: {`${sellerInfo.first_name} ${sellerInfo.last_name}`}</p>
-                  <p>Email: {sellerInfo.email}</p>
-                  <p>Contact: {sellerInfo.contact}</p>
+                  <p className="flex items-center"><FcBusinessman className="mr-1"/>{`${sellerInfo.first_name} ${sellerInfo.last_name}`}</p>
+                  <p className="flex items-center"><FcGoogle className="mr-1"/>{sellerInfo.email}</p>
+                  <p className="flex items-center"><FcIphone className="mr-1"/>{sellerInfo.contact}</p>
                   <button 
                   className='bg-sky-400 w-full rounded text-white'
                   onClick={addToCart}
