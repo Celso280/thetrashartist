@@ -65,7 +65,7 @@ function TextContent() {
               <h1 className="text-3xl font-semibold text-center uppercase">
                 Contact us
               </h1>
-              <form className="mt-6">
+              <form method='POST' action='https://getform.io/f/3cef2917-895e-4da6-aae4-2e5bc0f31282' className="mt-6">
               <div className="mb-2">
                   <label
                     for="text"
@@ -75,6 +75,7 @@ function TextContent() {
                   </label>
                   <input
                     type="text"
+                    name='name'
                     className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
@@ -87,6 +88,7 @@ function TextContent() {
                   </label>
                   <input
                     type="email"
+                    name='email'
                     className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
@@ -98,13 +100,14 @@ function TextContent() {
                     Contact Number
                   </label>
                   <input
-                    type="text"
+                    type="number"
+                    name='contact'
                     className="block w-full px-4 py-2 mt-2 text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 <div>
                   <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-                  <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Write your thoughts here..."></textarea>
+                  <textarea name='message' id="message" rows="4" class="block p-2.5 w-full text-sm text-slate-700 bg-white border rounded-md focus:border-slate-400 focus:ring-slate-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Write your thoughts here..."></textarea>
                 </div>
                 <div className="mt-6">
                   <button className="w-full px-4 py-2 tracking-wide transition-colors duration-200 transform bg-slate-200 rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600 hover:text-white">
